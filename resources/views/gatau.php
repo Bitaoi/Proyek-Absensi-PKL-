@@ -7,3 +7,6 @@
         <title>GAGAGAGAGAGAGAG</title>
 
         <!-- Fonts -->
+    </head>
+        <body>
+            <h1> kamu jawa </h1>
