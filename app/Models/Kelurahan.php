@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelurahan extends Model
 {
+    protected $table = 'kelurahan'; // ✅ Tambahkan ini untuk paksa ke nama tabel yang benar
     protected $primaryKey = 'kelurahan_id';
     public $timestamps = false;
 
-    protected $fillable = ['kecamatan_id', 'kelurahan_name'];
+    protected $fillable = ['kecamatan_id', 'nama_kelurahan'];
 
     public function kecamatan()
     {

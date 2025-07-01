@@ -40,8 +40,11 @@ class GuestController extends Controller
     public function getKelurahan($kecamatan_id)
     {
         $kelurahan = Kelurahan::where('kecamatan_id', $kecamatan_id)
-            ->select('kelurahan_id', 'nama_kelurahan as kelurahan_name') // ✅ perbaikan ini penting
+            ->select('kelurahan_id', 'kelurahan_name') // ✅ nama kolom sesuai database
             ->get();
+
         return response()->json($kelurahan);
     }
+
+
 }
