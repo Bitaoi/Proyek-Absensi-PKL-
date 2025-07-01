@@ -8,5 +8,6 @@
     <p>Ini adalah tampilan Blade Laravel sederhana.</p>
     <p>BUKU TAMU</p>
     <p>Welcome Fellas!!!!!!!!!!!!!!!!!!!!!!</p>
+    <p>anu tamu</p>
 </body>
 </html>
