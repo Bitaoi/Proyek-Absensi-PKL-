@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\LoginController; 
+use App\Http\Controllers\LoginController; 
 
 Route::get('/', function () {
     return view('welcome');
