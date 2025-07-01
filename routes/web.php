@@ -9,6 +9,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', function () {
+    return view('layouts.login'); 
+})->name('login');
+
 Route::get('/form', [GuestController::class, 'create'])->name('guest.form'); // dari sebelumnya "/"
 Route::post('/store', [GuestController::class, 'store'])->name('guest.store');
 Route::get('/kelurahan/{kecamatan_id}', [GuestController::class, 'getKelurahan']);
