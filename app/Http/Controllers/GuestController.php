@@ -39,7 +39,12 @@ class GuestController extends Controller
     // Ambil data kelurahan via Ajax
     public function getKelurahan($kecamatan_id)
     {
-        $kelurahan = Kelurahan::where('kecamatan_id', $kecamatan_id)->get();
+        $kelurahan = Kelurahan::where('kecamatan_id', $kecamatan_id)
+            ->select('kelurahan_id', 'kelurahan_name') // ✅ nama kolom sesuai database
+            ->get();
+
         return response()->json($kelurahan);
     }
+
+
 }

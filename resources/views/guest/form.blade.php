@@ -55,27 +55,36 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $('#kecamatan').on('change', function() {
-        let id = $(this).val();
-        if (id) {
-            $.get('/kelurahan/' + id, function(data) {
-                $('#kelurahan').empty().append('<option>-- Pilih Kelurahan --</option>');
-                data.forEach(function(kel) {
-                    $('#kelurahan').append('<option value="' + kel.kelurahan_id + '">' + kel.kelurahan_name + '</option>');
-                });
-            });
-        }
-    });
+    $(document).ready(function () {
 
-    $('#purpose').on('change', function() {
-        let selected = $(this).find('option:selected').text();
-        if (selected === 'Lainnya') {
-            $('#divLainnya').show();
-        } else {
-            $('#divLainnya').hide();
-        }
+        $('#kecamatan').on('change', function() {
+            let id = $(this).val();
+            if (id) {
+                $.get('/kelurahan/' + id, function(data) {
+                    $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                    data.forEach(function(kel) {
+                        $('#kelurahan').append('<option value="' + kel.kelurahan_id + '">' + kel.kelurahan_name + '</option>');
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    alert("Gagal memuat kelurahan: " + textStatus);
+                });
+            } else {
+                $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+            }
+        });
+
+        $('#purpose').on('change', function() {
+            let selected = $(this).find('option:selected').text();
+            if (selected === 'Lainnya') {
+                $('#divLainnya').show();
+            } else {
+                $('#divLainnya').hide();
+            }
+        });
+
     });
 </script>
+
 
 </body>
 </html>
