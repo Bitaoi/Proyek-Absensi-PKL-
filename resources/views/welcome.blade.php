@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-        <p>HAIIIIIIIIIIIIIIIIII</p>
+        <p>"mantap oi oi"</p>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
