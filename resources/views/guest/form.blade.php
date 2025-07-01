@@ -3,7 +3,7 @@
 <head>
     <title>Form Buku Tamu</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="style_form.css">
 </head>
 <body>
 
