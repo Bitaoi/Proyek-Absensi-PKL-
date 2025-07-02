@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container mt-5 form_box">
     <h2 class="mb-4 text-center">Formulir Buku Tamu</h2>
 
     @if (session('success'))
@@ -161,17 +161,25 @@
 
     label{
         font-size: 15px;
-        color: blue;
+        color: #3b818a;
     }
 
     body{
         padding: 20px;
-        background-color: #51fc5c;
+        background-color:rgb(255, 255, 255);
     }
 
     .btn{
         background-color: #3b818a;
         color: whitesmoke;
     }
+
+    .container.form-box { /
+            background-color: #ffffff; 
+            padding: 30px; /* Padding di dalam box */
+            border-radius: 10px; /* Sudut membulat */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+            /* mt-5 sudah ada di HTML, jadi tidak perlu margin-top lagi di CSS ini */
+        }
 
 </style>
