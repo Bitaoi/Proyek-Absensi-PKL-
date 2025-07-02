@@ -175,7 +175,7 @@
     }
 
     .container {
-        width: 400px;
+        width: 700px;
         background-color: #ffffff; 
         padding: 30px; 
         border-radius: 10px;
