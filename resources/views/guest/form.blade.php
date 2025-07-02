@@ -47,7 +47,7 @@
         <div class="mb-3">
     <label for="kelurahan" class="form-label">Kelurahan:</label>
     <select class="form-select" style="opacity:0.5;" name="kelurahan_id" id="kelurahan" required>
-        <option value="">-- Pilih Kelurahan --</option>
+        <option value=""> Pilih Kelurahan </option>
     </select>
 </div>
 
