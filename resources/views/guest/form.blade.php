@@ -45,11 +45,11 @@
         </div>
 
         <div class="mb-3">
-    <label for="kelurahan" class="form-label">Kelurahan:</label>
-    <select class="form-select" style="opacity:0.5;" name="kelurahan_id" id="kelurahan" required>
-        <option value=""> Pilih Kelurahan </option>
-    </select>
-</div>
+            <label for="kelurahan" class="form-label">Kelurahan:</label>
+            <select class="form-select" style="opacity:0.5;" name="kelurahan_id" id="kelurahan" required>
+                <option value=""> Pilih Kelurahan </option>
+            </select>
+        </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -105,7 +105,7 @@
             <input type="text" class="form-control" id="other_purpose_description" name="other_purpose_description">
         </div>
 
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-simpan">SIMPAN</button>
     </form>
 </div>
 
