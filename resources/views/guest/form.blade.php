@@ -150,6 +150,25 @@
 
 
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        box-sizing: border-box;
+    }
+
+    label{
+        font-size: 15px;
+        color: blue;
+    }
+
+    body{
+        padding: 20px;
+        background-color: #51fc5c;
+    }
+
     .btn{
         background-color: #3b818a;
         color: whitesmoke;
