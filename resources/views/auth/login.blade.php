@@ -10,7 +10,7 @@
 <body>
     <div class="container"><br>
         <div class="col-md-4 col-md-offset-4">
-            <h2 class="text-center"><b>ANISA</b><br>Aplikasi Nilai Santri</h3>
+            <h2 class="text-center"><b>ANISA</b><br>LOGIN ADMIN</h3>
             <hr>
             @if(session('error'))
             <div class="alert alert-danger">
