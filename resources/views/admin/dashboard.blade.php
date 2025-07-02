@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- Pastikan Anda punya layouts.app, jika tidak bisa dihapus --}}
+@extends('layouts.app') {{-- Hapus baris ini jika tidak pakai layouts --}}
 
 @section('content')
 
@@ -9,7 +9,7 @@
 <p>Ringkasan Absensi Bulan Ini: {{ $absensiMonth }}</p>
 
 {{-- Form Pencarian --}}
-<form action="{{ route('dashboard') }}" method="GET" style="margin-bottom: 20px;">
+<form action="{{ route('admin.dashboard') }}" method="GET" style="margin-bottom: 20px;">
     <input type="text" name="search" placeholder="Cari nama atau tanggal (yyyy-mm-dd)" value="{{ request('search') }}">
     <button type="submit">Cari</button>
 </form>
