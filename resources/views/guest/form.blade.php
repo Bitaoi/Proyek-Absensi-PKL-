@@ -37,7 +37,7 @@
         <div class="mb-3">
             <label for="kecamatan" class="form-label">Kecamatan:</label>
             <select class="form-select" name="kecamatan_id" id="kecamatan" required>
-                <option value="">-- Pilih Kecamatan --</option>
+                <option value=""> Pilih Kecamatan </option>
                 @foreach($kecamatan as $item)
                     <option value="{{ $item->kecamatan_id }}">{{ $item->kecamatan_name }}</option>
                 @endforeach
@@ -47,7 +47,7 @@
         <div class="mb-3">
             <label for="kelurahan" class="form-label">Kelurahan:</label>
             <select class="form-select" name="kelurahan_id" id="kelurahan" required>
-                <option value="">-- Pilih Kelurahan --</option>
+                <option value="opacity-50"> Pilih Kelurahan </option>
             </select>
         </div>
 
