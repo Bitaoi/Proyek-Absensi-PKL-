@@ -4,7 +4,10 @@
     <title>Form Buku Tamu</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style_form.css">
+    <!-- <link rel="stylesheet" href="style_form.css">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
+     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 <body>
 
@@ -46,10 +49,49 @@
 
         <div class="mb-3">
             <label for="kelurahan" class="form-label">Kelurahan:</label>
-            <select class="form-select" name="kelurahan_id" id="kelurahan" required>
-                <option value="opacity-50"> Pilih Kelurahan </option>
+            <select class="form-select" style="opacity:0.5;" name="kelurahan_id" id="kelurahan" required>
+                <option value=""> Pilih Kelurahan </option>
             </select>
         </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#kecamatan').on('change', function() {
+            let id = $(this).val();
+            if (id) {
+                // Set opacity kembali ke 1 saat kecamatan dipilih dan kelurahan akan dimuat
+                $('#kelurahan').css('opacity', '1');
+                $.get('/kelurahan/' + id, function(data) {
+                    $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                    data.forEach(function(kel) {
+                        $('#kelurahan').append('<option value="' + kel.kelurahan_id + '">' + kel.kelurahan_name + '</option>');
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    alert("Gagal memuat kelurahan: " + textStatus);
+                    // Jika gagal, kembalikan opacity ke 0.5
+                    $('#kelurahan').css('opacity', '0.5');
+                });
+            } else {
+                // Jika pilihan kecamatan dikosongkan, kelurahan juga kosong dan transparan
+                $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                $('#kelurahan').css('opacity', '0.5');
+            }
+        });
+
+        $('#purpose').on('change', function() {
+            let selected = $(this).find('option:selected').text();
+            if (selected === 'Lainnya') {
+                $('#divLainnya').show();
+            } else {
+                $('#divLainnya').hide();
+            }
+        });
+
+    });
+</script>
 
         <div class="mb-3">
             <label for="purpose" class="form-label">Tujuan Kunjungan:</label>
@@ -66,7 +108,7 @@
             <input type="text" class="form-control" id="other_purpose_description" name="other_purpose_description">
         </div>
 
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-simpan">SIMPAN</button>
     </form>
 </div>
 
@@ -105,3 +147,12 @@
 
 </body>
 </html>
+
+
+<style>
+    .btn{
+        background-color: #3b818a;
+        color: whitesmoke;
+    }
+
+</style>

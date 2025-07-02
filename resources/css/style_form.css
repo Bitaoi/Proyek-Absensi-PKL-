@@ -16,3 +16,8 @@ body{
     padding: 20px;
     background-color: #51fc5c;
 }
+
+.btn{
+    background-color: #3b818a;
+    color: whitesmoke;
+}
