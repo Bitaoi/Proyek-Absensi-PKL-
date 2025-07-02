@@ -1,4 +1,4 @@
-<p>Selamat Datang, {{ Auth::user()->name ?? 'Admin' }}</p>
+<p>Selamat Datang, Admin</p>
 <p>Ringkasan Absensi Hari Ini: {{ $absensiToday }}</p>
 <p>Ringkasan Absensi Minggu Ini: {{ $absensiWeek }}</p>
 <p>Ringkasan Absensi Bulan Ini: {{ $absensiMonth }}</p>
