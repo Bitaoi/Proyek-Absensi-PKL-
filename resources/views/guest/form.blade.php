@@ -182,4 +182,9 @@
         box-shadow: 0 4px 12px rgba(107, 128, 124, 0.2);
     }
 
+    .judul{
+        font-size: 80px;
+        color: #3b818a;
+    }
+
 </style>
