@@ -174,11 +174,12 @@
         color: whitesmoke;
     }
 
-    .container { /
-            background-color: #ffffff; 
-            padding: 30px; 
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+        width: 400px;
+        background-color: #ffffff; 
+        padding: 30px; 
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(107, 128, 124, 0.2);
+    }
 
 </style>
