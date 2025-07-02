@@ -174,12 +174,11 @@
         color: whitesmoke;
     }
 
-    .container.form-box { /
+    .container { /
             background-color: #ffffff; 
-            padding: 30px; /* Padding di dalam box */
-            border-radius: 10px; /* Sudut membulat */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
-            /* mt-5 sudah ada di HTML, jadi tidak perlu margin-top lagi di CSS ini */
+            padding: 30px; 
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
 </style>
