@@ -45,11 +45,50 @@
         </div>
 
         <div class="mb-3">
-            <label for="kelurahan" class="form-label">Kelurahan:</label>
-            <select class="form-select" name="kelurahan_id" id="kelurahan" required>
-                <option value="opacity-50"> Pilih Kelurahan </option>
-            </select>
-        </div>
+    <label for="kelurahan" class="form-label">Kelurahan:</label>
+    <select class="form-select" style="opacity:0.5;" name="kelurahan_id" id="kelurahan" required>
+        <option value="">-- Pilih Kelurahan --</option>
+    </select>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#kecamatan').on('change', function() {
+            let id = $(this).val();
+            if (id) {
+                // Set opacity kembali ke 1 saat kecamatan dipilih dan kelurahan akan dimuat
+                $('#kelurahan').css('opacity', '1');
+                $.get('/kelurahan/' + id, function(data) {
+                    $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                    data.forEach(function(kel) {
+                        $('#kelurahan').append('<option value="' + kel.kelurahan_id + '">' + kel.kelurahan_name + '</option>');
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    alert("Gagal memuat kelurahan: " + textStatus);
+                    // Jika gagal, kembalikan opacity ke 0.5
+                    $('#kelurahan').css('opacity', '0.5');
+                });
+            } else {
+                // Jika pilihan kecamatan dikosongkan, kelurahan juga kosong dan transparan
+                $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                $('#kelurahan').css('opacity', '0.5');
+            }
+        });
+
+        $('#purpose').on('change', function() {
+            let selected = $(this).find('option:selected').text();
+            if (selected === 'Lainnya') {
+                $('#divLainnya').show();
+            } else {
+                $('#divLainnya').hide();
+            }
+        });
+
+    });
+</script>
 
         <div class="mb-3">
             <label for="purpose" class="form-label">Tujuan Kunjungan:</label>
