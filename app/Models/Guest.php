@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guest extends Model
 {
-    protected $table = 'guests'; // ✅ tambahkan ini
+    protected $table = 'guests'; 
     protected $primaryKey = 'guest_id';
     public $timestamps = false;
 
@@ -20,7 +20,6 @@ class Guest extends Model
         'kelurahan_id',
     ];
 
-    // ✅ Relasi opsional
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
@@ -35,4 +34,5 @@ class Guest extends Model
     {
         return $this->belongsTo(Purpose::class, 'purpose_id');
     }
+    
 }
