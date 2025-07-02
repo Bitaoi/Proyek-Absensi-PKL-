@@ -21,7 +21,5 @@ Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('adm
 Route::post('/admin/login', [LoginController::class, 'login']); // <--- POTENSI MASALAH 2: Ini juga memanggil method 'login'
 Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/admin/dashboardadmin', [AdminController::class, 'index'])->name('dashboard');
     // Route untuk laporan mingguan, bulanan, export, lihat aktivitas akan ditambahkan di sini
-});
