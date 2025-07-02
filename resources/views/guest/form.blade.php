@@ -9,7 +9,7 @@
 <body>
 
 <div class="container mt-5">
-    <h2 class="mb-4 text_center">Formulir Buku Tamu</h2>
+    <h2 class="mb-4 text-center">Formulir Buku Tamu</h2>
 
     @if (session('success'))
         <div class="alert alert-success" role="alert">
