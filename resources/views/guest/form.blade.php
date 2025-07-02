@@ -185,6 +185,7 @@
     .judul{
         font-size: 80px;
         color: #3b818a;
+        text-align: center;
     }
 
 </style>
