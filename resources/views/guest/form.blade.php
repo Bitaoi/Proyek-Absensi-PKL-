@@ -12,7 +12,7 @@
 <body>
 
 <div class="container mt-5 form_box">
-    <h2 class="mb-4 text-center">Formulir Buku Tamu</h2>
+    <h2 class="judul mb-4">Formulir Buku Tamu</h2>
 
     @if (session('success'))
         <div class="alert alert-success" role="alert">
