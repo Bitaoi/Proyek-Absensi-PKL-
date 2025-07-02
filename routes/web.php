@@ -10,8 +10,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', [LoginController::class, 'login'])->name('login'); 
-
 Route::get('/form', [GuestController::class, 'create'])->name('guest.form');
 Route::post('/store', [GuestController::class, 'store'])->name('guest.store');
 Route::get('/kelurahan/{kecamatan_id}', [GuestController::class, 'getKelurahan']);
