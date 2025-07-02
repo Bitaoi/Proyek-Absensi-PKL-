@@ -10,10 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Ini adalah rute kedua yang juga mencoba menangani URL utama "/"
-// Masalah: Ini akan menimpa rute sebelumnya jika urutannya seperti ini.
-// Hanya rute yang didefinisikan terakhir yang akan aktif untuk URL yang sama.
-Route::get('/', [LoginController::class, 'login'])->name('login'); // <--- POTENSI MASALAH 1
+Route::get('/', [LoginController::class, 'login'])->name('login'); 
 
 Route::get('/form', [GuestController::class, 'create'])->name('guest.form');
 Route::post('/store', [GuestController::class, 'store'])->name('guest.store');
