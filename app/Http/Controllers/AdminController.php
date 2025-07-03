@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Guest;
-use App\Models\Purpose; // Pastikan model ini ada dan benar
-use App\Models\Kecamatan; // Pastikan model ini ada dan benar
-use App\Models\Kelurahan; // Pastikan model ini ada dan benar
+use App\Models\Purpose;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
+use App\Models\ActivityLog; // Tambahkan ini: Import model ActivityLog
+use App\Models\User; // Tambahkan ini: Import model User jika Anda ingin menampilkan nama pengguna
 use Carbon\Carbon;
-use Maatwebsite\Excel\Facades\Excel; // Pastikan library Maatwebsite/Excel sudah diinstal
-use App\Exports\GuestsExport; // Pastikan kelas GuestsExport sudah dibuat
-use Barryvdh\DomPDF\Facade\Pdf; // Pastikan library Barryvdh/Laravel-DomPDF sudah diinstal
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\GuestsExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
@@ -128,14 +130,31 @@ class AdminController extends Controller
     }
 
     /**
-     * Metode untuk melihat aktivitas admin (opsional).
-     * Anda perlu mengimplementasikan logika untuk menampilkan log aktivitas admin di sini.
+     * Metode untuk melihat aktivitas admin.
+     * Mengambil log aktivitas dari database dan menampilkannya.
      *
+     * @param Request $request
      * @return \Illuminate\View\View
      */
-    public function aktivitas()
+    public function aktivitas(Request $request) // Tambahkan parameter Request
     {
-        // Logika untuk menampilkan log aktivitas admin
-        return view('admin.aktivitas'); // Pastikan Anda memiliki view ini
+        // Logika untuk filter pencarian log (opsional)
+        $aktivitasQuery = ActivityLog::with('user')->latest('created_at'); // Eager load relasi user, urutkan dari terbaru
+
+        if ($request->has('search_log')) {
+            $searchTerm = $request->input('search_log');
+            $aktivitasQuery->where(function($query) use ($searchTerm) {
+                $query->where('action', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $searchTerm . '%')
+                      ->orWhereHas('user', function ($q) use ($searchTerm) { // Mencari di nama pengguna
+                          $q->where('name', 'like', '%' . $searchTerm . '%');
+                      });
+            });
+        }
+
+        $aktivitasLogs = $aktivitasQuery->paginate(15); // Paginasi log aktivitas
+
+        // Mengirimkan variabel yang dibutuhkan ke view aktivitas
+        return view('admin.aktivitas', compact('aktivitasLogs'));
     }
 }

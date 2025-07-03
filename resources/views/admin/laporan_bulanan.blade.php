@@ -4,7 +4,6 @@
     <div class="container mt-4">
         <h1 class="mb-3">Laporan Absensi Bulanan</h1>
 
-        {{-- Filter Bulan dan Tahun --}}
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Filter Laporan</h5>
@@ -34,7 +33,7 @@
             </div>
         </div>
 
-        <h2>Data Absensi Bulan {{ Carbon::create()->month($month)->translatedFormat('F') }} Tahun {{ $year }}</h2>
+        <h2>Data Absensi Bulan {{ $months[$month] }} Tahun {{ $year }}</h2>
         <div class="table-responsive mb-4">
             <table class="table table-bordered table-striped table-hover">
                 <thead class="thead-dark">
@@ -59,7 +58,8 @@
                             <td>{{ $guest->kecamatan->kecamatan_name ?? '-' }}</td>
                             <td>{{ $guest->kelurahan->kelurahan_name ?? '-' }}</td>
                             <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
-                            <td>{{ $guest->timestamp }}</td>
+                            {{-- Menggunakan DateTime bawaan PHP untuk format tanggal --}}
+                            <td>{{ (new DateTime($guest->timestamp))->format('Y-m-d H:i:s') }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -70,12 +70,10 @@
             </table>
         </div>
 
-        {{-- Paginasi --}}
         <div class="d-flex justify-content-center mb-4">
             {{ $guestsBulanan->appends(request()->query())->links() }}
         </div>
 
-        {{-- Tombol Export --}}
         <div class="mt-4">
             <a href="{{ route('admin.export', ['type' => 'excel', 'month' => $month, 'year' => $year]) }}" class="btn btn-success mr-2">Unduh Excel</a>
             <a href="{{ route('admin.export', ['type' => 'pdf', 'month' => $month, 'year' => $year]) }}" class="btn btn-danger">Unduh PDF</a>

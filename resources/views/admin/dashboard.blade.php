@@ -1,131 +1,73 @@
-@extends('layouts.admin') {{-- Ganti ke 'layouts.admin' jika itu layout admin Anda, atau 'layouts.app' jika Anda ingin menggunakan yang default Laravel --}}
+@extends('layouts.admin')
 
 @section('content')
-<div class="container mt-4"> {{-- Sangat penting untuk membungkus konten Anda dalam container --}}
-    <style>
-        /* CSS yang Anda berikan */
-        .search-form {
-            margin-bottom: 20px;
-        }
+    <div class="container mt-4">
+        <h1 class="mb-3">Dashboard Admin</h1>
+        <p class="lead">Selamat Datang, {{ Auth::user()->name ?? 'Admin' }}</p>
 
-        .search-input {
-            padding: 6px;
-            width: 250px;
-        }
+        @isset($absensiToday)
+            <p>Ringkasan Absensi Hari Ini: {{ $absensiToday }}</p>
+        @endisset
 
-        .search-button {
-            padding: 6px 12px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Cari Absensi</h5>
+                <form action="{{ route('admin.dashboard') }}" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Cari nama atau tanggal (yyyy-mm-dd)" value="{{ request('search') }}">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-primary">Cari</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-        .search-button:hover {
-            background-color: #0056b3;
-        }
+        <h2>Rekap Absensi Hari Ini</h2>
+        <div class="table-responsive mb-4">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Tujuan</th>
+                        <th>Waktu Absen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($guests as $guest)
+                        <tr>
+                            <td>{{ $guest->name }}</td>
+                            <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
+                            {{-- Menggunakan DateTime bawaan PHP untuk format tanggal --}}
+                            <td>{{ (new DateTime($guest->timestamp))->format('Y-m-d H:i:s') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-3">Tidak ada absensi hari ini.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px; /* Tambahkan margin bawah agar tidak terlalu mepet dengan tombol */
-        }
+        <div class="d-flex justify-content-center mb-4">
+            {{ $guests->links() }}
+        </div>
 
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        table th {
-            background-color: #f2f2f2;
-        }
-
-        .btn-group {
-            margin-top: 20px;
-        }
-
-        .btn-custom {
-            display: inline-block;
-            padding: 8px 16px;
-            margin-right: 5px;
-            text-decoration: none;
-            color: #fff;
-            border-radius: 4px;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-        }
-
-        .btn-success:hover {
-            background-color: #1e7e34;
-        }
-
-        .btn-info {
-            background-color: #17a2b8;
-        }
-
-        .btn-info:hover {
-            background-color: #117a8b;
-        }
-    </style>
-
-    <h1>Dashboard Admin</h1>
-    <p>Selamat Datang, Admin</p>
-    <p>Ringkasan Absensi Hari Ini: {{ $absensiToday }}</p>
-
-    {{-- Form Pencarian --}}
-    <form action="{{ route('admin.dashboard') }}" method="GET" class="search-form">
-        <input type="text" name="search" class="search-input" placeholder="Cari nama atau tanggal (yyyy-mm-dd)" value="{{ request('search') }}">
-        <button type="submit" class="search-button">Cari</button>
-    </form>
-
-    <h2>Rekap Absensi Hari Ini</h2> {{-- Tambahkan judul ini --}}
-
-    {{-- Tabel Data Tamu --}}
-    <table>
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Tujuan</th>
-                <th>Waktu Absen</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($guests as $guest)
-                <tr>
-                    <td>{{ $guest->name }}</td>
-                    <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
-                    <td>{{ $guest->timestamp }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">Data tidak ditemukan.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    {{-- Navigasi --}}
-    <div class="btn-group">
-        <a href="{{ route('admin.laporanMingguan') }}" class="btn-custom btn-primary">Laporan Mingguan</a>
-        <a href="{{ route('admin.laporanBulanan') }}" class="btn-custom btn-primary">Laporan Bulanan</a>
-        <a href="{{ route('admin.export') }}" class="btn-custom btn-success">Export Data</a>
-        <a href="{{ route('admin.aktivitas') }}" class="btn-custom btn-info">Lihat Aktivitas Admin</a>
+        <h2 class="mb-3">Laporan & Aksi</h2>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 mb-2">
+                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-primary btn-block">Laporan Mingguan</a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-2">
+                <a href="{{ route('admin.laporanBulanan') }}" class="btn btn-primary btn-block">Laporan Bulanan</a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-2">
+                <a href="{{ route('admin.export', ['type' => 'excel', 'month' => (new DateTime())->format('m'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block">Export Data</a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-2">
+                <a href="{{ route('admin.aktivitas') }}" class="btn btn-info btn-block">Lihat Aktivitas Admin</a>
+            </div>
+        </div>
     </div>
-
-    {{-- Pagination --}}
-    <div style="margin-top: 20px;">
-        {{ $guests->links() }}
-    </div>
-</div>
 @endsection

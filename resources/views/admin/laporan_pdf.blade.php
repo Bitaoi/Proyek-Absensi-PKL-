@@ -57,7 +57,8 @@
                     <td>{{ $guest->kecamatan->kecamatan_name ?? '-' }}</td>
                     <td>{{ $guest->kelurahan->kelurahan_name ?? '-' }}</td>
                     <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
-                    <td>{{ $guest->timestamp }}</td>
+                    {{-- Menggunakan DateTime bawaan PHP untuk format tanggal --}}
+                    <td>{{ (new DateTime($guest->timestamp))->format('Y-m-d H:i:s') }}</td>
                 </tr>
             @empty
                 <tr>
