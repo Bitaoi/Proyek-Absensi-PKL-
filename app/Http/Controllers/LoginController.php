@@ -4,37 +4,54 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session;
+use Illuminate\Support\Facades\Session; 
 
 class LoginController extends Controller
 {
-    public function login()
+    public function showLoginForm()
     {
         if (Auth::check()) {
-            return redirect('home');
-        }else{
-            return view('login');
+            return redirect()->route('admin.dashboard'); 
         }
+        
+        return view('auth.login'); 
     }
 
-    public function actionlogin(Request $request)
+
+    public function login(Request $request)
     {
-        $data = [
+        // Validasi input
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $credentials = [
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ];
 
-        if (Auth::Attempt($data)) {
-            return redirect('home');
-        }else{
-            Session::flash('error', 'Email atau Password Salah');
-            return redirect('/');
+
+        if (Auth::attempt($credentials)) {
+            // Regenerate session untuk mencegah session fixation attacks
+            $request->session()->regenerate();
+
+            // Arahkan ke dashboard admin setelah berhasil login
+            return redirect()->route('admin.dashboard');
+        } else {
+            return back()->withInput($request->only('username'))
+                         ->withErrors(['username' => 'Username atau Password yang Anda masukkan salah.']);
         }
     }
 
-    public function actionlogout()
+    
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/');
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login'); 
     }
 }

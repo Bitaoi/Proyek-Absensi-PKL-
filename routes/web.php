@@ -5,20 +5,12 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
-// Rute awal (beranda/welcome)
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-// --------------------
-// Rute Form Buku Tamu
-// --------------------
+
 Route::get('/form', [GuestController::class, 'create'])->name('guest.form');
 Route::post('/store', [GuestController::class, 'store'])->name('guest.store');
 Route::get('/kelurahan/{kecamatan_id}', [GuestController::class, 'getKelurahan'])->name('kelurahan.byKecamatan');
