@@ -48,7 +48,7 @@
 <body>
     <h1>{{ $title }}</h1>
     <h2>Bulan: {{ $monthName }} Tahun: {{ $year }}</h2>
-    <p class="meta-info">Tanggal Export: {{ $date }}</p>
+    <p class="meta-info">Tanggal Export: {{ (new DateTime())->format('d F Y') }}</p>
 
     <table>
         <thead>
@@ -77,7 +77,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center">Tidak ada data absensi.</td>
+                    <td colspan="8" class="text-center">Tidak ada data absensi untuk periode ini.</td>
                 </tr>
             @endforelse
         </tbody>

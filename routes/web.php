@@ -5,31 +5,47 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
+// Rute Halaman Utama
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-
+// --------------------
+// Rute Form Buku Tamu (Publik)
+// --------------------
 Route::get('/form', [GuestController::class, 'create'])->name('guest.form');
 Route::post('/store', [GuestController::class, 'store'])->name('guest.store');
 Route::get('/kelurahan/{kecamatan_id}', [GuestController::class, 'getKelurahan'])->name('kelurahan.byKecamatan');
 
 // --------------------
-// Rute Login Admin
+// Rute Login & Logout Admin
 // --------------------
 Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
-// --------------------
-// Rute Dashboard & Admin Panel
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/laporan-mingguan', [AdminController::class, 'laporanMingguan'])->name('admin.laporanMingguan');
-Route::get('/admin/laporan-bulanan', [AdminController::class, 'laporanBulanan'])->name('admin.laporanBulanan');
-Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
-Route::get('/admin/aktivitas', [AdminController::class, 'aktivitas'])->name('admin.aktivitas');
+// -------------------------------------------------------------------
+// Rute Panel Admin (Dashboard, Laporan, Ekspor, Aktivitas)
+// Sebaiknya dikelompokkan agar lebih rapi
+// -------------------------------------------------------------------
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    
+    // Laporan Mingguan
+    Route::get('/laporan-mingguan', [AdminController::class, 'laporanMingguan'])->name('laporanMingguan');
+    Route::get('/export-mingguan/{type}', [AdminController::class, 'exportMingguan'])->name('exportMingguan');
 
-Route::get('/laporan-bulanan', [AdminController::class, 'laporanBulanan'])->name('laporanBulanan');
-Route::get('/export/{type}', [AdminController::class, 'export'])->name('export');
-
+    // Laporan Bulanan
+    Route::get('/laporan-bulanan', [AdminController::class, 'laporanBulanan'])->name('laporanBulanan');
+    // PERBAIKAN: Menambahkan parameter {type} dan path yang benar
+    Route::get('/export-bulanan/{type}', [AdminController::class, 'export'])->name('export'); 
+    
+    // Aktivitas Admin
+    Route::get('/aktivitas', [AdminController::class, 'aktivitas'])->name('aktivitas');
+});
