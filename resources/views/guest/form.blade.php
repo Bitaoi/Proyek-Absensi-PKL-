@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<img src="{{ asset('image/fae_logo.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-20">
+
 <div class="container mt-5 form_box">
     <h2 class="judul mb-4">Formulir Buku Tamu</h2>
 
@@ -65,7 +67,7 @@
                 // Set opacity kembali ke 1 saat kecamatan dipilih dan kelurahan akan dimuat
                 $('#kelurahan').css('opacity', '1');
                 $.get('/kelurahan/' + id, function(data) {
-                    $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                    $('#kelurahan').empty().append('<option value=""> Pilih Kelurahan </option>');
                     data.forEach(function(kel) {
                         $('#kelurahan').append('<option value="' + kel.kelurahan_id + '">' + kel.kelurahan_name + '</option>');
                     });
@@ -76,7 +78,7 @@
                 });
             } else {
                 // Jika pilihan kecamatan dikosongkan, kelurahan juga kosong dan transparan
-                $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                $('#kelurahan').empty().append('<option value=""> Pilih Kelurahan </option>');
                 $('#kelurahan').css('opacity', '0.5');
             }
         });
@@ -96,7 +98,7 @@
         <div class="mb-3">
             <label for="purpose" class="form-label">Tujuan Kunjungan:</label>
             <select class="form-select" name="purpose_id" id="purpose" required>
-                <option value="">-- Pilih Tujuan --</option>
+                <option value=""> Pilih Tujuan </option>
                 @foreach($purposes as $item)
                     <option value="{{ $item->purpose_id }}">{{ $item->purpose_name }}</option>
                 @endforeach
@@ -108,7 +110,9 @@
             <input type="text" class="form-control" id="other_purpose_description" name="other_purpose_description">
         </div>
 
-        <button type="submit" class="btn btn-simpan">SIMPAN</button>
+        <div class="d-flex justify-content-end pt-3">
+            <button type="submit" class="btn btn-simpan">SIMPAN</button>
+        </div>
     </form>
 </div>
 
@@ -121,7 +125,7 @@
             let id = $(this).val();
             if (id) {
                 $.get('/kelurahan/' + id, function(data) {
-                    $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                    $('#kelurahan').empty().append('<option value=""> Pilih Kelurahan </option>');
                     data.forEach(function(kel) {
                         $('#kelurahan').append('<option value="' + kel.kelurahan_id + '">' + kel.kelurahan_name + '</option>');
                     });
@@ -129,7 +133,7 @@
                     alert("Gagal memuat kelurahan: " + textStatus);
                 });
             } else {
-                $('#kelurahan').empty().append('<option value="">-- Pilih Kelurahan --</option>');
+                $('#kelurahan').empty().append('<option value=""> Pilih Kelurahan </option>');
             }
         });
 
@@ -172,10 +176,16 @@
     .btn{
         background-color: #3b818a;
         color: whitesmoke;
+        width: 100px;
+        height: 50px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+
     }
 
     .container {
-        width: 700px;
+        width: 500px;
         background-color: #ffffff; 
         padding: 30px; 
         border-radius: 10px;
@@ -183,9 +193,10 @@
     }
 
     .judul{
-        font-size: 80px;
+        font-size: 50px;
         color: #3b818a;
         text-align: center;
+        font-weight: 600;
     }
 
 </style>
