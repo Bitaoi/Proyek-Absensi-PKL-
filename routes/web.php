@@ -29,3 +29,7 @@ Route::get('/admin/laporan-mingguan', [AdminController::class, 'laporanMingguan'
 Route::get('/admin/laporan-bulanan', [AdminController::class, 'laporanBulanan'])->name('admin.laporanBulanan');
 Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
 Route::get('/admin/aktivitas', [AdminController::class, 'aktivitas'])->name('admin.aktivitas');
+
+Route::get('/laporan-bulanan', [AdminController::class, 'laporanBulanan'])->name('laporanBulanan');
+Route::get('/export/{type}', [AdminController::class, 'export'])->name('export');
+
