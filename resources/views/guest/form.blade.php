@@ -45,20 +45,22 @@
 
                 <div class="mb-3">
                     <label for="kecamatan" class="form-label">Kecamatan:</label>
-                    <select class="form-select" name="kecamatan_id" id="kecamatan" required>
-                        <option value=""> Pilih Kecamatan </option>
+                    <select class="form-select" name="kecamatan_id" id="kecamatan">
+                        <option value="">Luar Kota / Tidak Ada</option>
                         @foreach($kecamatan as $item)
                             <option value="{{ $item->kecamatan_id }}">{{ $item->kecamatan_name }}</option>
                         @endforeach
                     </select>
                 </div>
 
+
                 <div class="mb-3">
                     <label for="kelurahan" class="form-label">Kelurahan:</label>
-                    <select class="form-select" style="opacity:0.5;" name="kelurahan_id" id="kelurahan" required>
-                        <option value=""> Pilih Kelurahan </option>
+                    <select class="form-select" style="opacity:0.5;" name="kelurahan_id" id="kelurahan">
+                        <option value="">Luar Kota / Tidak Ada</option>
                     </select>
                 </div>
+
 
 
                 <div class="mb-3">

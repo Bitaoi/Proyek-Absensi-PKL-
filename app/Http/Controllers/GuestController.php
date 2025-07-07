@@ -17,7 +17,6 @@ class GuestController extends Controller
         return view('guest.form', compact('kecamatan', 'purposes'));
     }
 
-    // Simpan data tamu
     public function store(Request $request)
     {
         $request->validate([
@@ -25,8 +24,8 @@ class GuestController extends Controller
             'phone_number' => 'required|string|max:20',
             'address' => 'nullable|string',
             'purpose_id' => 'required|exists:purposes,purpose_id',
-            'kecamatan_id' => 'required|exists:kecamatan,kecamatan_id',
-            'kelurahan_id' => 'required|exists:kelurahan,kelurahan_id',
+            'kecamatan_id' => 'nullable|exists:kecamatan,kecamatan_id',
+            'kelurahan_id' => 'nullable|exists:kelurahan,kelurahan_id',
             'other_purpose_description' => 'nullable|string',
         ]);
 
@@ -34,6 +33,7 @@ class GuestController extends Controller
 
         return redirect()->route('guest.form')->with('success', 'Data berhasil disimpan!');
     }
+
 
     public function getKelurahan($kecamatan_id)
     {
