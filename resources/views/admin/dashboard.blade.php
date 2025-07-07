@@ -1,9 +1,19 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Halaman Dashboard Admin</title>
+    @extends('layouts.admin')
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-@section('content')
+    @section('content')
+</head>
+
+<body>
 <div class="container mt-4">
     <h1 class="mb-3">Dashboard Admin</h1>
     <p class="lead">Selamat Datang, {{ Auth::user()->name ?? 'Admin' }}</p>
@@ -75,4 +85,5 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection    
+</body>

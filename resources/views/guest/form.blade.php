@@ -11,13 +11,13 @@
 </head>
 <body>
 <div class="logo pt-5 d-flex justify-content-center">
-    <img src="{{ asset('image/logo-pemkot.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-80">
+    <img src="{{ asset('image/fix_logo.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-80">
 </div>
 
 
-<div class="container mt-5 mb-5">
+<div class="mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-5 form_box">
+        <div class="col-12 col-md-8 col-lg-4 form_box">
             <h2 class="judul mb-4">Formulir Buku Tamu</h2>
 
             @if (session('success'))
@@ -191,10 +191,9 @@
     }
 
     /* .container {
-        background-color: #ffffff; 
-        padding: 30px; 
+        background-color: aliceblue; 
+        padding: 20px; 
         border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(107, 128, 124, 0.2);
     } */
 
     .judul{
