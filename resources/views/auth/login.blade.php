@@ -6,14 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Halaman Login Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    {{-- Menambahkan Font Awesome untuk ikon mata --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="d-flex align-items-center justify-content-center min-vh-100">
-    <div class="container">
+
+<body>
+
+<div class="d-flex flex-column align-items-center justify-content-center min-vh-100">
+    
+    <div class="logo">
+        <img src="{{ asset('image/fix_logo.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-80 mb-4">
+    </div>
+
+    <div class="">
         <div class="row justify-content-center">
-            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="col-md-8 col-sm-8 col-lg-12">
                 <div class="form_box p-4">
-                    <h3 class="judul text-center"><b>DINKOP</b><br>LOGIN ADMIN</h4>
+                    {{-- KESALAHAN 2: Tag </h4> diganti menjadi </h3> --}}
+                    <h3 class="judul text-center"><b>DINKOP</b><br>LOGIN ADMIN</h3>
                     <hr>
                     @if(session('error'))
                     <div class="alert alert-danger">
@@ -39,13 +50,20 @@
                                    value="" 
                                    required autofocus>
                         </div>
-                        <div class="mb-4">
+                        
+                        {{-- KESALAHAN 3: Struktur password diperbaiki --}}
+                        <div class="mb-4 position-relative">
                             <label for="password" class="form-label">PASSWORD</label>
                             <input type="password" id="password" name="password" class="form-control"
                                    placeholder="Masukkan password Anda"
                                    autocomplete="new-password" 
                                    required>
+                            <!-- {{-- Ikon mata ditempatkan di sini, di dalam div yang sama dengan input --}}
+                            <span id="togglePassword" style="position: absolute; right: 10px; top: 70%; transform: translateY(-50%); cursor: pointer;">
+                                <i class="fa-regular fa-eye"></i>
+                            </span> -->
                         </div>
+
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn">LOGIN</button>
                         </div>
@@ -54,6 +72,22 @@
             </div>
         </div>
     </div>
+</div>
+
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    const icon = togglePassword.querySelector('i');
+
+    togglePassword.addEventListener('click', function (e) {
+        // ganti tipe input password
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        
+        icon.classList.toggle('fa-solid fa-eye-slash'); 
+    });
+</script>
+
 </body>
 </html>
 
@@ -66,7 +100,7 @@
         font-family: 'Poppins', sans-serif;
         box-sizing: border-box;
     }
-
+        
     label{
         font-size: 15px;
         color: #3b818a;
@@ -74,7 +108,7 @@
 
     body{
         padding: 20px;
-        background-color:rgb(255, 255, 255);
+        background: aliceblue;
     }
 
     .judul{
@@ -105,7 +139,7 @@
         font-size: 16px;
     }
     .form-control{
-        font-size: 14px;
+        font-size: 16px;
     }
-
+   
 </style>
