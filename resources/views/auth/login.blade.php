@@ -8,7 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="d-flex align-items-center justify-content-center min-vh-100">
+
+
+<body>
+
+<div class="logo pt-5 d-flex justify-content-center">
+    <img src="{{ asset('image/logo-pemkot.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-80 mb-4">
+</div class="d-flex align-items-center justify-content-center min-vh-100">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
@@ -41,10 +47,19 @@
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label">PASSWORD</label>
+                            <div class="mata" style="display: inline-block;">
                             <input type="password" id="password" name="password" class="form-control"
                                    placeholder="Masukkan password Anda"
                                    autocomplete="new-password" 
                                    required>
+
+                                   <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                                    <i class="fa-regular fa-eye"></i>
+                                </span>
+
+                            </div>
+
+
                         </div>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn">LOGIN</button>
@@ -66,6 +81,7 @@
         font-family: 'Poppins', sans-serif;
         box-sizing: border-box;
     }
+        
 
     label{
         font-size: 15px;
@@ -74,7 +90,8 @@
 
     body{
         padding: 20px;
-        background-color:rgb(255, 255, 255);
+        background: aliceblue;
+
     }
 
     .judul{
@@ -105,7 +122,7 @@
         font-size: 16px;
     }
     .form-control{
-        font-size: 14px;
+        font-size: 16px;
     }
 
 </style>

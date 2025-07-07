@@ -10,7 +10,6 @@
 
 </head>
 <body>
-
 <div class="logo pt-5 d-flex justify-content-center">
     <img src="{{ asset('image/logo-pemkot.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-80">
 </div>
@@ -171,15 +170,14 @@
         font-family: 'Poppins', sans-serif;
         box-sizing: border-box;
     }
+    body{
+        padding: 20px;
+        background: aliceblue;
+    }
 
     label{
         font-size: 15px;
         color: rgb(16, 80, 89);
-    }
-
-    body{
-        padding: 20px;
-        background-color:rgb(255, 255, 255);
     }
 
     .btn{
@@ -227,6 +225,6 @@
         font-size: 16px;
     }
     .form-control{
-        font-size: 14px;
+        font-size: 16px;
     }
 </style>
