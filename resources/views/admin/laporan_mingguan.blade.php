@@ -2,31 +2,42 @@
 
 @section('content')
 <div class="container mt-4">
-    {{-- Filter Card untuk Navigasi Minggu --}}
+    {{-- Filter Card untuk memilih rentang tanggal dan navigasi cepat --}}
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-            <h5 class="card-title">Filter Laporan Mingguan</h5>
-            <div class="d-flex justify-content-between align-items-center">
-                {{-- Tombol untuk pindah ke minggu sebelumnya --}}
-                <a href="{{ route('admin.laporanMingguan', ['date' => $previousWeekDate]) }}" class="btn btn-outline-secondary">&laquo; Minggu Sebelumnya</a>
-                
-                {{-- Teks yang menunjukkan periode minggu yang sedang ditampilkan --}}
-                <span class="font-weight-bold text-center">
-                    {{ $startDate->format('d M Y') }} - {{ $endDate->format('d M Y') }}
-                </span>
-                
-                {{-- Tombol untuk pindah ke minggu berikutnya --}}
-                <a href="{{ route('admin.laporanMingguan', ['date' => $nextWeekDate]) }}" class="btn btn-outline-secondary">Minggu Berikutnya &raquo;</a>
+            <h7 class="card-title"><strong>Filter Laporan</strong></h7>
+            
+            {{-- Navigasi Cepat --}}
+            <div class="mb-3 pt-2">
+                <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Sebelumnya</a>
+                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
+                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Berikutnya &raquo;</a>
             </div>
-            <div class="text-center mt-3">
-                {{-- Tombol untuk kembali ke laporan minggu ini --}}
-                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-primary">Kembali ke Minggu Ini</a>
-            </div>
+
+            <hr>
+
+            {{-- Filter Tanggal Kustom --}}
+            <p class="mb-2"><strong>Pilih Tanggal</strong></p>
+            <form action="{{ route('admin.laporanMingguan') }}" method="GET">
+                <div class="row align-items-end">
+                    <div class="col-md-5">
+                        <label for="start_date" class="form-label">Awal Minggu</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $startDate->format('Y-m-d') }}">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="end_date" class="form-label">Akhir Minggu</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
-    <h1 class="mb-1">Laporan Absensi Mingguan</h1>
-    <p class="lead mb-4">Menampilkan rekap absensi dari tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
+    <h1 class="mb-1">Laporan Absensi</h1>
+    <p class="lead mb-4">Rekap Absensi dari Tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
 
     {{-- Tabel data absensi --}}
     <div class="table-responsive mb-4">
@@ -49,7 +60,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center text-muted py-3">Tidak ada data absensi untuk periode ini.</td>
+                        <td colspan="4" class="text-center text-muted py-3">Tidak Ada Data Absensi Untuk Periode Ini.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -64,9 +75,9 @@
     {{-- Tombol Aksi (Ekspor dan Kembali) --}}
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
-            {{-- Tombol ekspor kini menyertakan tanggal agar data yang diekspor sesuai --}}
-            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'date' => $startDate->format('Y-m-d')]) }}" class="btn btn-success">Unduh Excel</a>
-            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'date' => $startDate->format('Y-m-d')]) }}" class="btn btn-danger">Unduh PDF</a>
+            {{-- Tombol ekspor kini menyertakan rentang tanggal dari filter --}}
+            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-success">Unduh Excel</a>
+            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-danger">Unduh PDF</a>
         </div>
         <div>
             <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali ke Dashboard</a>
