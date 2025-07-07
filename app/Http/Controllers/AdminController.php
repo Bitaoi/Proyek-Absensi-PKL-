@@ -13,6 +13,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
+    // ... (fungsi index dan lainnya tetap sama) ...
     public function index(Request $request)
     {
         $today = new DateTime();
@@ -33,17 +34,45 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('absensiToday', 'guests'));
     }
 
-    public function laporanMingguan()
+    /**
+     * PERUBAHAN UTAMA DI SINI
+     * Menampilkan laporan absensi dengan filter tanggal dan navigasi cepat.
+     */
+    public function laporanMingguan(Request $request)
     {
-        $endDate = new DateTime();
-        $startDate = (new DateTime())->sub(new DateInterval('P6D'));
+        // 1. Tentukan rentang tanggal yang akan ditampilkan.
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $startDate = new DateTime($request->start_date);
+            $endDate = new DateTime($request->end_date);
+        } else {
+            // Default ke minggu ini (Senin - Minggu).
+            $startDate = new DateTime('monday this week');
+            $endDate = new DateTime('sunday this week');
+        }
 
+        // 2. Hitung tanggal untuk tombol navigasi "Minggu Lalu" dan "Minggu Berikutnya".
+        $prevWeekStartDate = (clone $startDate)->sub(new DateInterval('P1W'))->format('Y-m-d');
+        $prevWeekEndDate = (clone $endDate)->sub(new DateInterval('P1W'))->format('Y-m-d');
+        $nextWeekStartDate = (clone $startDate)->add(new DateInterval('P1W'))->format('Y-m-d');
+        $nextWeekEndDate = (clone $endDate)->add(new DateInterval('P1W'))->format('Y-m-d');
+
+        // 3. Ambil data dari database.
         $guestsMingguan = Guest::with(['purpose', 'kecamatan', 'kelurahan'])
                                 ->whereBetween('timestamp', [$startDate->format('Y-m-d').' 00:00:00', $endDate->format('Y-m-d').' 23:59:59'])
                                 ->latest('timestamp')
-                                ->paginate(15);
+                                ->paginate(15)
+                                ->appends($request->query());
 
-        return view('admin.laporan_mingguan', compact('guestsMingguan', 'startDate', 'endDate'));
+        // 4. Kirim semua data yang dibutuhkan ke view.
+        return view('admin.laporan_mingguan', compact(
+            'guestsMingguan', 
+            'startDate', 
+            'endDate',
+            'prevWeekStartDate',
+            'prevWeekEndDate',
+            'nextWeekStartDate',
+            'nextWeekEndDate'
+        ));
     }
 
     public function laporanBulanan(Request $request)
@@ -69,28 +98,21 @@ class AdminController extends Controller
         return view('admin.laporan_bulanan', compact('guestsBulanan', 'month', 'year', 'months', 'years'));
     }
 
-    /**
-     * PERBAIKAN PADA FUNGSI INI
-     */
     public function export(Request $request, $type)
     {
         try {
             $now = new DateTime();
             $month = $request->input('month', $now->format('m'));
             $year = $request->input('year', $now->format('Y'));
-
             $guestsToExport = Guest::with(['purpose', 'kecamatan', 'kelurahan'])
                                    ->whereMonth('timestamp', $month)
                                    ->whereYear('timestamp', $year)
                                    ->latest('timestamp')
                                    ->get();
-
             $fileName = 'laporan_absensi_bulanan_' . $month . '_' . $year;
-
             if ($type === 'excel') {
                 return Excel::download(new GuestsExport($guestsToExport), $fileName . '.xlsx');
             } 
-            
             if ($type === 'pdf') {
                 $monthName = DateTime::createFromFormat('!m', $month)->format('F');
                 $data = [
@@ -100,37 +122,37 @@ class AdminController extends Controller
                     'year' => $year,
                     'guests' => $guestsToExport
                 ];
-
-                // Mengarahkan ke view PDF yang benar: 'admin.laporan.laporanbulanan'
                 $pdf = Pdf::loadView('admin.laporan.laporanbulanan', $data);
                 return $pdf->download($fileName . '.pdf');
             }
         } catch (\Exception $e) {
             return "Gagal membuat file. Error: " . $e->getMessage();
         }
-
         return redirect()->back()->with('error', 'Format export tidak valid.');
     }
 
-    public function exportMingguan($type)
+    public function exportMingguan(Request $request, $type)
     {
         try {
-            $endDate = new DateTime();
-            $startDate = (new DateTime())->sub(new DateInterval('P6D'));
+            if ($request->has('start_date') && $request->has('end_date')) {
+                $startDate = new DateTime($request->start_date);
+                $endDate = new DateTime($request->end_date);
+            } else {
+                $startDate = new DateTime('monday this week');
+                $endDate = new DateTime('sunday this week');
+            }
             $guestsToExport = Guest::with(['purpose', 'kecamatan', 'kelurahan'])
                                     ->whereBetween('timestamp', [$startDate->format('Y-m-d').' 00:00:00', $endDate->format('Y-m-d').' 23:59:59'])
                                     ->latest('timestamp')
                                     ->get();
-            $fileName = 'laporan_absensi_mingguan_' . $startDate->format('Y-m-d') . '_-_' . $endDate->format('Y-m-d');
-
+            $fileName = 'laporan_absensi_' . $startDate->format('Y-m-d') . '_-_' . $endDate->format('Y-m-d');
             if ($type === 'excel') {
                 return Excel::download(new GuestsExport($guestsToExport), $fileName . '.xlsx');
             } 
-            
             if ($type === 'pdf') {
                 $data = [
-                    'title' => 'Laporan Absensi Mingguan',
-                    'date' => $endDate->format('d F Y'),
+                    'title' => 'Laporan Absensi Periode Tertentu',
+                    'date' => (new DateTime())->format('d F Y'),
                     'startDate' => $startDate,
                     'endDate' => $endDate,
                     'guests' => $guestsToExport
@@ -141,14 +163,12 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             return "Gagal membuat file. Error: " . $e->getMessage();
         }
-
         return redirect()->back()->with('error', 'Format export tidak valid.');
     }
 
     public function aktivitas(Request $request)
     {
         $aktivitasQuery = ActivityLog::with('user')->latest('created_at');
-
         if ($request->has('search_log')) {
             $searchTerm = $request->input('search_log');
             $aktivitasQuery->where(function($query) use ($searchTerm) {
@@ -159,7 +179,6 @@ class AdminController extends Controller
                       });
             });
         }
-
         $aktivitasLogs = $aktivitasQuery->paginate(15);
         return view('admin.aktivitas', compact('aktivitasLogs'));
     }

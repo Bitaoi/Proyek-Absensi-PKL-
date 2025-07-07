@@ -2,9 +2,44 @@
 
 @section('content')
 <div class="container mt-4">
-    <h1 class="mb-1">Laporan Absensi Mingguan</h1>
-    <p class="lead mb-4">Menampilkan rekap absensi dari tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
+    {{-- Filter Card untuk memilih rentang tanggal dan navigasi cepat --}}
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h7 class="card-title"><strong>Filter Laporan</strong></h7>
+            
+            {{-- Navigasi Cepat --}}
+            <div class="mb-3 pt-2">
+                <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Sebelumnya</a>
+                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
+                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Berikutnya &raquo;</a>
+            </div>
 
+            <hr>
+
+            {{-- Filter Tanggal Kustom --}}
+            <p class="mb-2"><strong>Pilih Tanggal</strong></p>
+            <form action="{{ route('admin.laporanMingguan') }}" method="GET">
+                <div class="row align-items-end">
+                    <div class="col-md-5">
+                        <label for="start_date" class="form-label">Awal Minggu</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $startDate->format('Y-m-d') }}">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="end_date" class="form-label">Akhir Minggu</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <h1 class="mb-1">Laporan Absensi</h1>
+    <p class="lead mb-4">Rekap Absensi dari Tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
+
+    {{-- Tabel data absensi --}}
     <div class="table-responsive mb-4">
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
@@ -25,22 +60,24 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center text-muted py-3">Tidak ada data absensi dalam 7 hari terakhir.</td>
+                        <td colspan="4" class="text-center text-muted py-3">Tidak Ada Data Absensi Untuk Periode Ini.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
+    {{-- Navigasi halaman (pagination) --}}
     <div class="d-flex justify-content-center mb-4">
         {{ $guestsMingguan->links() }}
     </div>
 
-    {{-- BAGIAN YANG HILANG DAN SEKARANG DITAMBAHKAN KEMBALI --}}
+    {{-- Tombol Aksi (Ekspor dan Kembali) --}}
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
-            <a href="{{ route('admin.exportMingguan', ['type' => 'excel']) }}" class="btn btn-success">Unduh Excel</a>
-            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf']) }}" class="btn btn-danger">Unduh PDF</a>
+            {{-- Tombol ekspor kini menyertakan rentang tanggal dari filter --}}
+            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-success">Unduh Excel</a>
+            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-danger">Unduh PDF</a>
         </div>
         <div>
             <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali ke Dashboard</a>
