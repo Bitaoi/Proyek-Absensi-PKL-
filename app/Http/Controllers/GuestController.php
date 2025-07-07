@@ -10,7 +10,6 @@ use App\Models\Purpose;
 
 class GuestController extends Controller
 {
-    // Tampilkan form buku tamu
     public function create()
     {
         $kecamatan = Kecamatan::all();
@@ -36,7 +35,6 @@ class GuestController extends Controller
         return redirect()->route('guest.form')->with('success', 'Data berhasil disimpan!');
     }
 
-    // Ambil data kelurahan via Ajax
     public function getKelurahan($kecamatan_id)
     {
         $kelurahan = Kelurahan::where('kecamatan_id', $kecamatan_id)
