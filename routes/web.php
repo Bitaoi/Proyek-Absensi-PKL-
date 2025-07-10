@@ -48,4 +48,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     
     // Aktivitas Admin
     Route::get('/aktivitas', [AdminController::class, 'aktivitas'])->name('aktivitas');
+
+    //menambahkan fungsi untuk membersihkan log admin
+    Route::post('/aktivitas/clear', [AdminController::class, 'clearAktivitas'])->name('aktivitas.clear');
+
 });
