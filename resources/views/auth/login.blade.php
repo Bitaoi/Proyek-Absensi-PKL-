@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Halaman Login Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    {{-- Menambahkan Font Awesome untuk ikon mata --}}
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -21,7 +21,7 @@
 
     <div class="">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-sm-8 col-lg-12">
+            <div class="col-12">
                 <div class="form_box p-4">
                     {{-- KESALAHAN 2: Tag </h4> diganti menjadi </h3> --}}
                     <h3 class="judul text-center"><b>DINKOP</b><br>LOGIN ADMIN</h3>
@@ -45,7 +45,7 @@
                         <div class="mb-4">
                             <label for="username" class="form-label">USERNAME</label>
                             <input type="text" id="username" name="username" class="form-control"
-                                   placeholder="Masukkan username Anda"
+                                   placeholder="Masukkan Username Anda"
                                    autocomplete="off" 
                                    value="" 
                                    required autofocus>
@@ -55,7 +55,7 @@
                         <div class="mb-4 position-relative">
                             <label for="password" class="form-label">PASSWORD</label>
                             <input type="password" id="password" name="password" class="form-control"
-                                   placeholder="Masukkan password Anda"
+                                   placeholder="Masukkan Password Anda"
                                    autocomplete="new-password" 
                                    required>
                             <!-- {{-- Ikon mata ditempatkan di sini, di dalam div yang sama dengan input --}}

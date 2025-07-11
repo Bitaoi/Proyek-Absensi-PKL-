@@ -33,10 +33,8 @@ class LoginController extends Controller
 
 
         if (Auth::attempt($credentials)) {
-            // Regenerate session untuk mencegah session fixation attacks
             $request->session()->regenerate();
 
-            // Arahkan ke dashboard admin setelah berhasil login
             return redirect()->route('admin.dashboard');
         } else {
             return back()->withInput($request->only('username'))

@@ -42,11 +42,9 @@
     </style>
 </head>
 <body>
-    {{-- Kode Navbar Admin --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Admin Panel</a>
+        <a class="navbar-brand m-3" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
         
-        {{-- Tombol Toggler untuk Responsivitas (Muncul di layar kecil) --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -84,8 +82,7 @@
                 </li>
             </ul>
         </div>
-    </nav>
-    {{-- Akhir Kode Navbar Admin --}}
+    </nav> 
 
     <main class="py-4">
         <div class="container mt-4">

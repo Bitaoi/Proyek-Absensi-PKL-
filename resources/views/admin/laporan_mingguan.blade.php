@@ -1,17 +1,37 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Laporan Mingguan</title>
+    @extends('layouts.admin')
 
-@section('content')
-<div class="container mt-4">
-    {{-- Filter Card untuk memilih rentang tanggal dan navigasi cepat --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @section('content')
+</head>
+
+<body>
+
+<h1 class="mb-3">Laporan Absensi Mingguan</h1>
+<div class="mt-4">
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-            <h7 class="card-title"><strong>Filter Laporan</strong></h7>
+            <!-- <h7 class="card-title d-flex justify-content-end mr-2">Filter Laporan</h7> -->
             
-            {{-- Navigasi Cepat --}}
-            <div class="mb-3 pt-2">
-                <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Sebelumnya</a>
-                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
-                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Berikutnya &raquo;</a>
+            <div class="mb-3 pt-2 d-flex justify-content-end">
+                
+            <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn" id="after">
+                    &laquo; <span class="d-none d-md-inline">Minggu Sebelumnya</span>
+                </a>
+                
+                <a href="{{ route('admin.laporanMingguan') }}" class="btn mx-2" id="this">Minggu Ini</a>
+                
+                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn" id="after">
+                    <span class="d-none d-md-inline">Minggu Berikutnya</span> &raquo;
+                </a>
             </div>
 
             <hr>
@@ -28,8 +48,8 @@
                         <label for="end_date" class="form-label">Akhir Minggu</label>
                         <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
                     </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    <div class="col-md-2 mt-3 justify-content-end">
+                        <button type="submit" class="btn w-20" id="filter">Filter</button>
                     </div>
                 </div>
             </form>
@@ -60,28 +80,89 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center text-muted py-3">Tidak Ada Data Absensi Untuk Periode Ini.</td>
+                        <td colspan="4" class="text-center text-muted py-3">Tidak Ada Data Absensi Untuk Periode Minggu Ini.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    {{-- Navigasi halaman (pagination) --}}
     <div class="d-flex justify-content-center mb-4">
         {{ $guestsMingguan->links() }}
     </div>
 
-    {{-- Tombol Aksi (Ekspor dan Kembali) --}}
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
-            {{-- Tombol ekspor kini menyertakan rentang tanggal dari filter --}}
-            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-success">Unduh Excel</a>
-            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-danger">Unduh PDF</a>
+            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="excel">Unduh Excel</a>
+            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="pdf">Unduh PDF</a>
         </div>
         <div>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali ke Dashboard</a>
+            <a href="{{ route('admin.dashboard') }}" class="btn">Kembali</a>
         </div>
     </div>
-</div>
 @endsection
+</body>
+
+<style>
+    body{
+        background-color: aliceblue;
+    }
+
+    .btn{
+        background-color: #3b818a;
+        color: whitesmoke;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+    }
+
+    .btn:hover{
+        background-color:rgba(160, 181, 183, 0.21);
+        color:rgb(16, 80, 89);
+        transition: 0.5s;
+    }
+
+    #excel{
+        background-color: #10793F;
+    }
+
+    #pdf{
+        background-color: #F40F02;
+    }
+
+    #pdf:hover{
+        background-color:rgb(153, 14, 44);
+        color: whitesmoke;
+        transition: 0.5s;
+    }
+
+    #excel:hover{
+        background-color:rgb(3, 53, 26);
+        color: whitesmoke;
+        transition: 0.5s;
+    }
+    /* #filter{
+        background-color: transparent;
+        border: 1px solid #3b818a;
+        color: #3b818a;
+    }
+
+    #filter:hover{
+        background-color:rgb(3, 53, 26);
+        color: whitesmoke;
+        transition: 0.5s;
+    } */
+
+    #after{
+        background-color: transparent;
+        border: 1px solid #3b818a;
+        color: #3b818a;
+    }
+
+    #after:hover{
+        background-color:rgb(3, 53, 26);
+        color: whitesmoke;
+        transition: 0.5s;
+    }
+    
+</style>
