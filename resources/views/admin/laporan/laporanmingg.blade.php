@@ -55,6 +55,7 @@
             <tr>
                 <th>No.</th>
                 <th>Nama</th>
+                <th>Alamat</th> {{-- <-- KOLOM BARU DITAMBAHKAN --}}
                 <th>Tujuan Kunjungan</th>
                 <th>Waktu Absen</th>
             </tr>
@@ -64,12 +65,13 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $guest->name }}</td>
+                    <td>{{ $guest->address }}</td> {{-- <-- DATA ALAMAT DITAMPILKAN --}}
                     <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
                     <td>{{ (new DateTime($guest->timestamp))->format('d/m/Y H:i') }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Tidak ada data absensi untuk periode ini.</td>
+                    <td colspan="5" class="text-center">Tidak ada data absensi untuk periode ini.</td> {{-- <-- Colspan diubah menjadi 5 --}}
                 </tr>
             @endforelse
         </tbody>

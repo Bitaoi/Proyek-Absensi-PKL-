@@ -43,8 +43,8 @@
                     <form method="POST" action="{{ route('admin.login.submit') }}">
                         @csrf
                         <div class="mb-4">
-                            <label for="username" class="form-label">USERNAME</label>
-                            <input type="text" id="username" name="username" class="form-control"
+                            <label for="name" class="form-label">USERNAME</label>
+                            <input type="text" id="name" name="name" class="form-control"
                                    placeholder="Masukkan Username Anda"
                                    autocomplete="off" 
                                    value="" 
@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn">LOGIN</button>
+                            <button type="submit" class="btn" id="loginButton">LOGIN</button>
                         </div>
                     </form>
                 </div>
@@ -85,6 +85,11 @@
         password.setAttribute('type', type);
         
         icon.classList.toggle('fa-solid fa-eye-slash'); 
+    });
+
+        document.getElementById('loginButton').addEventListener('click', function() {
+        this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+        this.disabled = true;
     });
 </script>
 

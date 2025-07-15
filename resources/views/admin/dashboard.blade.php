@@ -77,8 +77,7 @@
             <a href="{{ route('admin.laporanBulanan') }}" class="btn btn-secondary btn-block" id="lbulan">Laporan Bulanan</a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
-            {{-- PERBAIKAN: Menggunakan format 'n' untuk bulan tanpa awalan nol --}}
-            <a href="{{ route('admin.export', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block" id="lexcel">Export Excel</a>
+            <a href="{{ route('admin.exportBulanan', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block" id="lexcel">Export Excel</a>
         </div>
         <!-- <div class="col-md-3 col-sm-6 mb-2">
             <a href="{{ route('admin.aktivitas') }}" class="btn btn-info btn-block">Lihat Aktivitas Admin</a>

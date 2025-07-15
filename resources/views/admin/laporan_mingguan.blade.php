@@ -32,20 +32,28 @@
                 <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn" id="after">
                     <span class="d-none d-md-inline">Minggu Berikutnya</span> &raquo;
                 </a>
+            <h5 class="card-title">Filter Laporan</h5>
+            
+            {{-- Navigasi Cepat --}}
+            <div class="mb-3 pt-2">
+                <p class="mb-2"><strong>Navigasi Cepat:</strong></p>
+                <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Lalu</a>
+                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
+                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Depan &raquo;</a>
             </div>
 
             <hr>
 
             {{-- Filter Tanggal Kustom --}}
-            <p class="mb-2"><strong>Pilih Tanggal</strong></p>
+            <p class="mb-2"><strong>Pilih Rentang Tanggal Kustom:</strong></p>
             <form action="{{ route('admin.laporanMingguan') }}" method="GET">
                 <div class="row align-items-end">
                     <div class="col-md-5">
-                        <label for="start_date" class="form-label">Awal Minggu</label>
+                        <label for="start_date" class="form-label">Tanggal Mulai</label>
                         <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $startDate->format('Y-m-d') }}">
                     </div>
                     <div class="col-md-5">
-                        <label for="end_date" class="form-label">Akhir Minggu</label>
+                        <label for="end_date" class="form-label">Tanggal Selesai</label>
                         <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
                     </div>
                     <div class="col-md-2 mt-3 justify-content-end">
@@ -57,7 +65,7 @@
     </div>
 
     <h1 class="mb-1">Laporan Absensi</h1>
-    <p class="lead mb-4">Rekap Absensi dari Tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
+    <p class="lead mb-4">Menampilkan rekap absensi dari tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
 
     {{-- Tabel data absensi --}}
     <div class="table-responsive mb-4">
@@ -66,6 +74,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Nama</th>
+                    <th>Alamat</th> {{-- <-- KOLOM BARU DITAMBAHKAN --}}
                     <th>Tujuan Kunjungan</th>
                     <th>Waktu Absen</th>
                 </tr>
@@ -75,12 +84,14 @@
                     <tr>
                         <td>{{ $guestsMingguan->firstItem() + $index }}</td>
                         <td>{{ $guest->name }}</td>
+                        <td>{{ $guest->address }}</td> {{-- <-- DATA ALAMAT DITAMPILKAN --}}
                         <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
                         <td>{{ (new DateTime($guest->timestamp))->format('d F Y, H:i:s') }}</td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="4" class="text-center text-muted py-3">Tidak Ada Data Absensi Untuk Periode Minggu Ini.</td>
+                        <td colspan="5" class="text-center text-muted py-3">Tidak ada data absensi untuk periode ini.</td> {{-- <-- Colspan diubah menjadi 5 --}}
                     </tr>
                 @endforelse
             </tbody>
@@ -93,8 +104,13 @@
 
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
+<<<<<<< HEAD
             <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="excel">Unduh Excel</a>
             <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="pdf">Unduh PDF</a>
+=======
+            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-success">Unduh Excel</a>
+            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-danger">Unduh PDF</a>
+>>>>>>> 772a073354a5bdb72317e79a7cabc121df3fa97d
         </div>
         <div>
             <a href="{{ route('admin.dashboard') }}" class="btn">Kembali</a>
