@@ -20,7 +20,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
+        $request->validate([ 
             'name' => 'required|string',
             'password' => 'required|string',
         ], [

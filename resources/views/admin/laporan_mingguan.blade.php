@@ -8,43 +8,35 @@
     @extends('layouts.admin')
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @section('content')
 </head>
 
 <body>
-
 <h1 class="mb-3">Laporan Absensi Mingguan</h1>
 <div class="mt-4">
     <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <!-- <h7 class="card-title d-flex justify-content-end mr-2">Filter Laporan</h7> -->
-            
-            <div class="mb-3 pt-2 d-flex justify-content-end">
+        <div class="">
+
+            <div class="d-flex justify-content-end align-items-center">
+                <h5 class="card-title me-auto mb-0">Filter Laporan</h5>
+                <div class="btn-group" role="group" aria-label="Navigasi Minggu">
+                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Lalu</a>
+                </div>
                 
-            <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn" id="after">
-                    &laquo; <span class="d-none d-md-inline">Minggu Sebelumnya</span>
-                </a>
-                
-                <a href="{{ route('admin.laporanMingguan') }}" class="btn mx-2" id="this">Minggu Ini</a>
-                
-                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn" id="after">
-                    <span class="d-none d-md-inline">Minggu Berikutnya</span> &raquo;
-                </a>
-            <h5 class="card-title">Filter Laporan</h5>
-            
-            {{-- Navigasi Cepat --}}
-            <div class="mb-3 pt-2">
-                <p class="mb-2"><strong>Navigasi Cepat:</strong></p>
-                <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Lalu</a>
-                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
-                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Depan &raquo;</a>
+                <div class="btn-group" role="group" aria-label="tengah">
+                    <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
+                </div>
+                <div class="btn-group" role="group" aria-label="akhir">
+                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Depan &raquo;</a>
+                </div>
+                </div>
             </div>
 
             <hr>
 
-            {{-- Filter Tanggal Kustom --}}
+
             <p class="mb-2"><strong>Pilih Rentang Tanggal Kustom:</strong></p>
             <form action="{{ route('admin.laporanMingguan') }}" method="GET">
                 <div class="row align-items-end">
@@ -56,8 +48,8 @@
                         <label for="end_date" class="form-label">Tanggal Selesai</label>
                         <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
                     </div>
-                    <div class="col-md-2 mt-3 justify-content-end">
-                        <button type="submit" class="btn w-20" id="filter">Filter</button>
+                    <div class="col-md-2 mt-3 mt-md-0">
+                        <button type="submit" class="btn w-100" id="filter">Filter</button> {{-- Menggunakan w-100 agar tombol memenuhi kolom --}}
                     </div>
                 </div>
             </form>
@@ -67,14 +59,13 @@
     <h1 class="mb-1">Laporan Absensi</h1>
     <p class="lead mb-4">Menampilkan rekap absensi dari tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
 
-    {{-- Tabel data absensi --}}
     <div class="table-responsive mb-4">
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>No.</th>
                     <th>Nama</th>
-                    <th>Alamat</th> {{-- <-- KOLOM BARU DITAMBAHKAN --}}
+                    <th>Alamat</th>
                     <th>Tujuan Kunjungan</th>
                     <th>Waktu Absen</th>
                 </tr>
@@ -84,14 +75,13 @@
                     <tr>
                         <td>{{ $guestsMingguan->firstItem() + $index }}</td>
                         <td>{{ $guest->name }}</td>
-                        <td>{{ $guest->address }}</td> {{-- <-- DATA ALAMAT DITAMPILKAN --}}
+                        <td>{{ $guest->address }}</td>
                         <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
                         <td>{{ (new DateTime($guest->timestamp))->format('d F Y, H:i:s') }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center text-muted py-3">Tidak Ada Data Absensi Untuk Periode Minggu Ini.</td>
-                        <td colspan="5" class="text-center text-muted py-3">Tidak ada data absensi untuk periode ini.</td> {{-- <-- Colspan diubah menjadi 5 --}}
+                        <td colspan="5" class="text-center text-muted py-3">Tidak ada data absensi untuk periode ini.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -104,13 +94,8 @@
 
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
-<<<<<<< HEAD
             <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="excel">Unduh Excel</a>
             <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="pdf">Unduh PDF</a>
-=======
-            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-success">Unduh Excel</a>
-            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-danger">Unduh PDF</a>
->>>>>>> 772a073354a5bdb72317e79a7cabc121df3fa97d
         </div>
         <div>
             <a href="{{ route('admin.dashboard') }}" class="btn">Kembali</a>
@@ -157,28 +142,4 @@
         color: whitesmoke;
         transition: 0.5s;
     }
-    /* #filter{
-        background-color: transparent;
-        border: 1px solid #3b818a;
-        color: #3b818a;
-    }
-
-    #filter:hover{
-        background-color:rgb(3, 53, 26);
-        color: whitesmoke;
-        transition: 0.5s;
-    } */
-
-    #after{
-        background-color: transparent;
-        border: 1px solid #3b818a;
-        color: #3b818a;
-    }
-
-    #after:hover{
-        background-color:rgb(3, 53, 26);
-        color: whitesmoke;
-        transition: 0.5s;
-    }
-    
 </style>

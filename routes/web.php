@@ -14,22 +14,15 @@ Route::post('/store', [GuestController::class, 'store'])->name('guest.store');
 Route::get('/kelurahan/{kecamatan_id}', [GuestController::class, 'getKelurahan'])->name('kelurahan.byKecamatan');
 
 Route::prefix('admin')->name('admin.')->group(function () {
-
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-
         Route::get('/laporan-mingguan', [AdminController::class, 'laporanMingguan'])->name('laporanMingguan');
         Route::get('/export-mingguan/{type}', [AdminController::class, 'exportMingguan'])->name('exportMingguan');
-
         Route::get('/laporan-bulanan', [AdminController::class, 'laporanBulanan'])->name('laporanBulanan');
         Route::get('/export-bulanan/{type}', [AdminController::class, 'export'])->name('exportBulanan');
-
         Route::get('/aktivitas', [AdminController::class, 'aktivitas'])->name('aktivitas');
     });
 });

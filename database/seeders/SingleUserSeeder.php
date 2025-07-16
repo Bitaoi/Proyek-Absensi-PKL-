@@ -39,10 +39,12 @@ class SingleUserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        // Anda bisa menambahkan user lain di sini jika perlu
-        // DB::table('users')->insert([
-        //     'name' => 'Pengguna Biasa',
-        //     // ...
-        // ]);
+        DB::table('users')->insert([
+            'name' => 'adminn',
+            'email' => 'admin123@example.com', 
+            'password' => Hash::make('adminn'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }
