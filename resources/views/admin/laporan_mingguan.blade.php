@@ -1,6 +1,19 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Laporan Mingguan</title>
+    @extends('layouts.admin')
 
-@section('content')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @section('content')
+</head>
+
+<body>
 <div class="container mt-4">
     {{-- Filter Card untuk memilih rentang tanggal dan navigasi cepat --}}
     <div class="card mb-4 shadow-sm">
@@ -87,3 +100,44 @@
     </div>
 </div>
 @endsection
+</body>
+
+<style>
+    body{
+        background-color: aliceblue;
+    }
+
+    .btn{
+        background-color: #3b818a;
+        color: whitesmoke;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+    }
+
+    .btn:hover{
+        background-color:rgba(160, 181, 183, 0.21);
+        color:rgb(16, 80, 89);
+        transition: 0.5s;
+    }
+
+    #excel{
+        background-color: #10793F;
+    }
+
+    #pdf{
+        background-color: #F40F02;
+    }
+
+    #pdf:hover{
+        background-color:rgb(153, 14, 44);
+        color: whitesmoke;
+        transition: 0.5s;
+    }
+
+    #excel:hover{
+        background-color:rgb(3, 53, 26);
+        color: whitesmoke;
+        transition: 0.5s;
+    }
+</style>
