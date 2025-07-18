@@ -5,6 +5,9 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 
+
+
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -19,10 +22,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+<<<<<<< HEAD
     // --- PERBAIKAN DI SINI ---
     Route::middleware('auth:admin')->group(function () { // <-- Ubah 'auth' menjadi 'auth:admin'
-        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+=======
 
+
+    Route::middleware('auth')->group(function () {
+>>>>>>> a4efb052096fcaf64b388db48b35c0b12534bfbe
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::get('/export/{type}', [AdminController::class, 'export'])->name('export');
         Route::get('/laporan-mingguan', [AdminController::class, 'laporanMingguan'])->name('laporanMingguan');
         Route::get('/export-mingguan/{type}', [AdminController::class, 'exportMingguan'])->name('exportMingguan');
 

@@ -85,9 +85,7 @@
         icon.classList.toggle('fa-eye-slash');
     });
 
-    document.getElementById('loginButton').addEventListener('click', function() {
-        this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
-        this.disabled = true;
+
     });
 </script>
 

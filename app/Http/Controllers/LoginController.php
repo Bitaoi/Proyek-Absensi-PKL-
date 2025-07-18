@@ -12,12 +12,15 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
+<<<<<<< HEAD
         // PENTING: Jika admin Anda login dengan guard 'admin', Anda perlu mengecek guard 'admin' di sini juga.
         // Jika hanya ada satu jenis user (admin), Anda bisa biarkan Auth::check()
         // Atau lebih spesifik:
         if (Auth::guard('admin')->check()) { // <-- PERUBAHAN: Cek guard 'admin'
             return redirect()->route('admin.dashboard');
         }
+=======
+>>>>>>> a4efb052096fcaf64b388db48b35c0b12534bfbe
         return view('auth.login');
     }
 
