@@ -5,6 +5,9 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 
+
+
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -21,9 +24,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+
+
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-
+        Route::get('/export/{type}', [AdminController::class, 'export'])->name('export');
         Route::get('/laporan-mingguan', [AdminController::class, 'laporanMingguan'])->name('laporanMingguan');
         Route::get('/export-mingguan/{type}', [AdminController::class, 'exportMingguan'])->name('exportMingguan');
 
