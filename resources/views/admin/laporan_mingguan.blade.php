@@ -14,8 +14,8 @@
 </head>
 
 <body>
-<h1 class="mb-3">Laporan Absensi Mingguan</h1>
-<div class="mt-4">
+<div class="container mt-4">
+    {{-- Filter Card untuk memilih rentang tanggal dan navigasi cepat --}}
     <div class="card mb-4 shadow-sm">
         <div class="">
 

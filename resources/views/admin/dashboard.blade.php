@@ -14,9 +14,12 @@
 </head>
 
 <body>
+@extends('layouts.admin') {{-- Ini harus di baris paling atas --}}
+
+@section('content')
 <div class="container mt-4">
     <h1 class="mb-3">Dashboard Admin</h1>
-    <p class="lead">Selamat Datang, {{ Auth::user()->name ?? 'Admin' }}</p>
+    <p class="lead">Selamat Datang, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}</p>
 
     @isset($absensiToday)
         <div class="alert alert-info">
@@ -79,15 +82,11 @@
         <div class="col-md-3 col-sm-6 mb-2">
             <a href="{{ route('admin.exportBulanan', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block" id="lexcel">Export Excel</a>
         </div>
-        <!-- <div class="col-md-3 col-sm-6 mb-2">
-            <a href="{{ route('admin.aktivitas') }}" class="btn btn-info btn-block">Lihat Aktivitas Admin</a>
-        </div> -->
-    </div>
+        </div>
 </div>
-@endsection    
-</body>
+@endsection
 
-
+{{-- Pindahkan style ke sini jika memang ingin di inline, atau lebih baik ke file CSS --}}
 <style>
     #cari{
         background-color: transparent;
@@ -110,5 +109,4 @@
         -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
     }
-    
 </style>

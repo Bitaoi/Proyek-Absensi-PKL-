@@ -11,10 +11,19 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-    $middleware->redirectGuestsTo('/masuk');
+        // PERBAIKI BARIS INI DARI:
+        // $middleware->redirectGuestsTo(route('admin.login'));
+        // MENJADI SALAH SATU DARI BERIKUT:
+
+        // Opsi 1 (Disarankan untuk kesederhanaan jika hanya ada satu jenis redirect):
+        // Cukup berikan string URL langsung
+        $middleware->redirectGuestsTo('/admin/login'); 
+
+        // Opsi 2 (Disarankan jika Anda mungkin memiliki guard berbeda di masa depan):
+        // Gunakan fungsi anonim (closure) agar `route()` dipanggil saat dibutuhkan
+        // $middleware->redirectGuestsTo(fn (string $guard) => route('admin.login'));
+        
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
-
-

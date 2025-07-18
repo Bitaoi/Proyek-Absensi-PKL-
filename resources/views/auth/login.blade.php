@@ -7,7 +7,6 @@
     <title>Halaman Login Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -23,7 +22,6 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="form_box p-4">
-                    {{-- KESALAHAN 2: Tag </h4> diganti menjadi </h3> --}}
                     <h3 class="judul text-center"><b>DINKOP</b><br>LOGIN ADMIN</h3>
                     <hr>
                     @if(session('error'))
@@ -45,23 +43,21 @@
                         <div class="mb-4">
                             <label for="name" class="form-label">USERNAME</label>
                             <input type="text" id="name" name="name" class="form-control"
-                                   placeholder="Masukkan Username Anda"
-                                   autocomplete="off" 
-                                   value="" 
-                                   required autofocus>
+                                       placeholder="Masukkan Username Anda"
+                                       autocomplete="off" 
+                                       value="" 
+                                       required autofocus>
                         </div>
                         
-                        {{-- KESALAHAN 3: Struktur password diperbaiki --}}
                         <div class="mb-4 position-relative">
                             <label for="password" class="form-label">PASSWORD</label>
                             <input type="password" id="password" name="password" class="form-control"
-                                   placeholder="Masukkan Password Anda"
-                                   autocomplete="new-password" 
-                                   required>
-                            <!-- {{-- Ikon mata ditempatkan di sini, di dalam div yang sama dengan input --}}
+                                       placeholder="Masukkan Password Anda"
+                                       autocomplete="new-password" 
+                                       required>
                             <span id="togglePassword" style="position: absolute; right: 10px; top: 70%; transform: translateY(-50%); cursor: pointer;">
-                                <i class="fa-regular fa-eye"></i>
-                            </span> -->
+                                <i class="fa-solid fa-eye"></i>
+                            </span>
                         </div>
 
                         <div class="d-grid gap-2">
@@ -84,10 +80,12 @@
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
         password.setAttribute('type', type);
         
-        icon.classList.toggle('fa-solid fa-eye-slash'); 
+        // ganti ikon mata
+        icon.classList.toggle('fa-eye');
+        icon.classList.toggle('fa-eye-slash');
     });
 
-        document.getElementById('loginButton').addEventListener('click', function() {
+    document.getElementById('loginButton').addEventListener('click', function() {
         this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
         this.disabled = true;
     });
@@ -146,5 +144,4 @@
     .form-control{
         font-size: 16px;
     }
-   
 </style>
