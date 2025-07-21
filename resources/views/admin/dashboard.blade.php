@@ -44,6 +44,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th>Nama</th>
+                    <th>Alamat</th>
                     <th>Tujuan</th>
                     <th>Waktu Absen</th>
                 </tr>
@@ -52,12 +53,13 @@
                 @forelse($guests as $guest)
                     <tr>
                         <td>{{ $guest->name }}</td>
+                        <td>{{ $guest->address }}</td>
                         <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
                         <td>{{ (new DateTime($guest->timestamp))->format('d F Y, H:i:s') }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="text-center text-muted py-3">Tidak ada absensi hari ini.</td>
+                        <td colspan="4" class="text-center text-muted py-3">Tidak ada absensi hari ini.</td>
                     </tr>
                 @endforelse
             </tbody>
