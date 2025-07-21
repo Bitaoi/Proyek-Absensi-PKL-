@@ -6,21 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Models\User; // Perhatikan: Jika admin Anda menggunakan model lain (misal: App\Models\Admin), pastikan App\Models\User ini diganti atau model yang benar diimpor dan digunakan oleh provider di config/auth.php
+use App\Models\User;
 
 class LoginController extends Controller
 {
     public function showLoginForm()
     {
-<<<<<<< HEAD
-        // PENTING: Jika admin Anda login dengan guard 'admin', Anda perlu mengecek guard 'admin' di sini juga.
-        // Jika hanya ada satu jenis user (admin), Anda bisa biarkan Auth::check()
-        // Atau lebih spesifik:
-        if (Auth::guard('admin')->check()) { // <-- PERUBAHAN: Cek guard 'admin'
-            return redirect()->route('admin.dashboard');
-        }
-=======
->>>>>>> a4efb052096fcaf64b388db48b35c0b12534bfbe
         return view('auth.login');
     }
 
@@ -36,13 +27,10 @@ class LoginController extends Controller
 
         $credentials = $request->only('name', 'password');
 
-        // ====== BAGIAN YANG DIGANTI/DILENGKAPI ======
-        // Gunakan guard 'admin' untuk mencoba login
-        if (Auth::guard('admin')->attempt($credentials)) { 
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended(route('admin.dashboard'));
         }
-        // ===========================================
 
         return back()->withInput($request->only('name'))
                      ->with('error', 'Username atau Password salah!');
@@ -50,11 +38,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        // ====== BAGIAN YANG DIGANTI/DILENGKAPI ======
-        // Logout dari guard 'admin'
-        Auth::guard('admin')->logout();
-        // ===========================================
-
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('admin.login')->with('success', 'Anda telah berhasil logout.');

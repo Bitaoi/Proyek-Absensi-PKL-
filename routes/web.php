@@ -19,17 +19,14 @@ Route::get('/kelurahan/{kecamatan_id}', [GuestController::class, 'getKelurahan']
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-<<<<<<< HEAD
-    // --- PERBAIKAN DI SINI ---
-    Route::middleware('auth:admin')->group(function () { // <-- Ubah 'auth' menjadi 'auth:admin'
-=======
 
 
     Route::middleware('auth')->group(function () {
->>>>>>> a4efb052096fcaf64b388db48b35c0b12534bfbe
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
         Route::get('/export/{type}', [AdminController::class, 'export'])->name('export');
         Route::get('/laporan-mingguan', [AdminController::class, 'laporanMingguan'])->name('laporanMingguan');

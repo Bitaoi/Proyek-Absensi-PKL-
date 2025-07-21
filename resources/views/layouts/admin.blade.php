@@ -65,20 +65,29 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-none d-lg-block">
+                    <a href="{{ route('admin.logout') }}" class="btn btn-danger my-2 my-lg-0"
+                       onclick="event.preventDefault(); document.getElementById('logout-form-desktop').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form-desktop" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
+                
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name ?? 'Admin' }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('admin.logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
+                        <a class="dropdown-item d-lg-none" href="{{ route('admin.logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
                             Logout
                         </a>
-                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                        <form id="logout-form-mobile" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                    </div>
+                        </div>
                 </li>
             </ul>
         </div>
@@ -86,7 +95,7 @@
 
     <main class="py-4">
         <div class="container mt-4">
-            @yield('content') {{-- Konten dari dashboard.blade.php akan masuk di sini --}}
+            @yield('content')
         </div>
     </main>
 

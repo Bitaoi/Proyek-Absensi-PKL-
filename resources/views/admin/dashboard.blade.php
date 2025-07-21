@@ -14,9 +14,6 @@
 </head>
 
 <body>
-@extends('layouts.admin') {{-- Ini harus di baris paling atas --}}
-
-@section('content')
 <div class="container mt-4">
     <h1 class="mb-3">Dashboard Admin</h1>
     <p class="lead">Selamat Datang, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}</p>
@@ -85,8 +82,6 @@
         </div>
 </div>
 @endsection
-
-{{-- Pindahkan style ke sini jika memang ingin di inline, atau lebih baik ke file CSS --}}
 <style>
     #cari{
         background-color: transparent;
