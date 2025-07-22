@@ -73,10 +73,10 @@
     <h2 class="mb-3">Laporan & Aksi</h2>
     <div class="row">
         <div class="col-md-3 col-sm-6 mb-2">
-            <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-primary btn-block">Laporan Mingguan</a>
+            <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-block">Laporan Mingguan</a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
-            <a href="{{ route('admin.laporanBulanan') }}" class="btn btn-secondary btn-block" id="lbulan">Laporan Bulanan</a>
+            <a href="{{ route('admin.laporanBulanan') }}" class="btn btn-block" id="lbulan">Laporan Bulanan</a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
             <a href="{{ route('admin.exportBulanan', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block" id="lexcel">Export Excel</a>
@@ -85,11 +85,16 @@
 </div>
 @endsection
 <style>
-    #cari{
-        background-color: transparent;
+    #cari {
+        background-color: #ffffff; /* Atau ganti dengan warna lain */
         border: 1px solid #3b818a;
         color: #3b818a;
+        padding: 8px 12px;
+        border-radius: 5px;
+        width: 100%; /* atau ukuran tertentu, misalnya 250px */
+        box-sizing: border-box;
     }
+
 
     #cari:hover{
         background-color:rgb(3, 53, 26);
@@ -105,5 +110,13 @@
     #lexcel{
         -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
+    }
+
+    .btn{
+        background-color: #3b818a;
+        color: whitesmoke;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
     }
 </style>

@@ -16,21 +16,21 @@
             font-weight: bold;
             font-size: 1.3rem;
             letter-spacing: 1px;
-            /* Pastikan tidak ada margin-right atau properti yang mendorongnya terlalu jauh */
-            margin-right: 0; /* Override default jika ada */
+            margin-right: 0;
         }
 
         /* Ini adalah div yang akan menampung navbar-brand dan tombol logout */
         .navbar-header-custom {
             display: flex; 
             align-items: center;
-            justify-content: space-between;
             width: 100%; 
+            padding: 0px;
+
         }
 
         .logout-btn-wrapper {
-            margin-left: 100px; /* Mendorong ke kanan */
-            margin-right: 0; /* Sesuaikan jarak dari kanan jika diperlukan */
+            margin-left: 100%; 
+            margin-right: 0;
         }
 
 
@@ -56,11 +56,17 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* Hilangkan CSS tambahan sebelumnya jika tidak lagi relevan */
-        /* .navbar-nav.ml-auto .nav-item {
-            display: flex;
-            align-items: center;
-        } */
+        #logout{
+            background-color: red;
+            color: aliceblue;
+            padding: 8px 12px;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            
+        }
+
+
     </style>
 </head>
 <body>
@@ -68,8 +74,8 @@
         <div class="navbar-header-custom">
             <a class="navbar-brand m-3" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
 
-            <div class="logout-btn-wrapper">
-                <a href="{{ route('admin.logout') }}" class="btn btn-danger my-2 my-lg-0"
+            <div class="btnn logout-btn-wrapper">
+                <a href="{{ route('admin.logout') }}" class="btn btn-danger my-2 my-lg-0 float-end" id="logout"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                 </a>
@@ -88,10 +94,10 @@
                 <li class="nav-item {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
                 </li>
-                <li class="nav-item {{ Request::routeIs('admin.laporanMingguan') ? 'active' : '' }}">
+                <li class="btn nav-item {{ Request::routeIs('admin.laporanMingguan') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('admin.laporanMingguan') }}">Laporan Mingguan</a>
                 </li>
-                <li class="nav-item {{ Request::routeIs('admin.laporanBulanan') ? 'active' : '' }}">
+                <li class="btn nav-item {{ Request::routeIs('admin.laporanBulanan') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('admin.laporanBulanan') }}">Laporan Bulanan</a>
                 </li>
                 <li class="nav-item {{ Request::routeIs('admin.aktivitas') ? 'active' : '' }}">

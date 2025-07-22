@@ -39,7 +39,7 @@
                             </select>
                         </div>
                         <div class="col-md-2 mt-3 justify-content-end">
-                            <button type="submit" class="btn btn-block w-20">Filter</button>
+                            <button type="submit" class="btn btn-block w-20" id="filter">Filter</button>
                         </div>
                     </div>
                 </form>
@@ -107,6 +107,16 @@
         -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
         border-radius: 25px;
+    }
+
+    #filter{
+        background-color: transparent;
+        color: #3b818a;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+        border: 1px solid #3b818a;
+
     }
 
     .btn:hover{
