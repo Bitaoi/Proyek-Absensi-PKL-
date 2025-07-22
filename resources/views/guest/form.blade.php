@@ -9,9 +9,6 @@
 </head>
 <body>
 
-    <div class="d-grid gap-2 justify-content-end">
-        <a href="{{ route('login') }}" class="btn" id="logadmin">LOGIN ADMIN</a>
-    </div>
 
 <div class="logo pt-5 d-flex justify-content-center">
     <img src="{{ asset('image/fix_logo.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-80">
@@ -126,11 +123,6 @@
     });
 </script>
 
-<script>
-    document.getElementById('logadmin').addEventListener('click', function() {
-        window.location.href = "{{ route('login') }}";
-    });
-</script>
 
 <script>
     $(document).ready(function () {

@@ -14,11 +14,7 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-    <div class="mt-4">
-=======
     <div class="container mt-4">
->>>>>>> ad1614231b0c85f7a1c064b92621ec34ace9f26f
         <h1 class="mb-3">Laporan Absensi Bulanan</h1>
 
         <div class="card mb-4 shadow-sm">
