@@ -19,7 +19,7 @@
             margin-right: 0;
         }
 
-        /* Ini adalah div yang akan menampung navbar-brand dan tombol logout */
+
         .navbar-header-custom {
             display: flex; 
             align-items: center;
@@ -32,7 +32,6 @@
             margin-left: 100%; 
             margin-right: 0;
         }
-
 
         .navbar-nav .nav-link {
             transition: color 0.3s, background-color 0.3s;
@@ -62,17 +61,21 @@
             padding: 8px 12px;
             border-radius: 5px;
             width: 100%;
-            box-sizing: border-box;
-            
+            box-sizing: border-box;   
         }
 
+        #logout:hover{
+            background-color: tranparent;
+            border: 1px solid red;
+            color: #3b818a;
+        }
 
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="navbar-header-custom">
-            <a class="navbar-brand m-3" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
+            <a class="navbar-brand m-3 pl-5" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
 
             <div class="btnn logout-btn-wrapper">
                 <a href="{{ route('admin.logout') }}" class="btn btn-danger my-2 my-lg-0 float-end" id="logout"

@@ -112,11 +112,18 @@
     #filter{
         background-color: transparent;
         color: #3b818a;
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
-        border-radius: 25px;
+        padding: 8px 12px;
+        border-radius: 5px;
+        width: 50%;
+        box-sizing: border-box;
         border: 1px solid #3b818a;
 
+    }
+
+    #filter:hover{
+        background-color: #3b818a;
+        color: aliceblue;
+        transition: 0.5s;
     }
 
     .btn:hover{

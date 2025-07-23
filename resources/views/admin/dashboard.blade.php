@@ -49,6 +49,7 @@
                     <th>Waktu Absen</th>
                 </tr>
             </thead>
+            
             <tbody>
                 @forelse($guests as $guest)
                     <tr>
@@ -64,6 +65,9 @@
                 @endforelse
             </tbody>
         </table>
+        <div class="col-md-3 col-sm-6">
+            <a href="{{ route('admin.exportBulanan', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block" id="lexcel">Export Excel</a>
+        </div>
     </div>
 
     <div class="d-flex justify-content-center mb-4">
@@ -77,9 +81,6 @@
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
             <a href="{{ route('admin.laporanBulanan') }}" class="btn btn-block" id="lbulan">Laporan Bulanan</a>
-        </div>
-        <div class="col-md-3 col-sm-6 mb-2">
-            <a href="{{ route('admin.exportBulanan', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block" id="lexcel">Export Excel</a>
         </div>
         </div>
 </div>
@@ -118,5 +119,12 @@
         -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
         border-radius: 25px;
+    }
+
+    .btn:hover{
+        background-color: transparent;
+        border: 1px solid #3b818a;
+        color: #3b818a;
+        transition: 0.5s;
     }
 </style>
