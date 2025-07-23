@@ -16,7 +16,7 @@
 <body>
 <div class="container mt-4">
     <h1 class="mb-3">Dashboard Admin</h1>
-    <p class="lead">Selamat Datang, {{ Auth::user()->name ?? 'Admin' }}</p>
+    <p class="lead">Selamat Datang, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}</p>
 
     @isset($absensiToday)
         <div class="alert alert-info">
@@ -31,7 +31,7 @@
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Cari nama atau tanggal (yyyy-mm-dd)" value="{{ request('search') }}">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-outline-primary">Cari</button>
+                        <button type="submit" class="btn" id="cari">Cari</button>
                     </div>
                 </div>
             </form>
@@ -76,16 +76,34 @@
             <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-primary btn-block">Laporan Mingguan</a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
-            <a href="{{ route('admin.laporanBulanan') }}" class="btn btn-secondary btn-block">Laporan Bulanan</a>
+            <a href="{{ route('admin.laporanBulanan') }}" class="btn btn-secondary btn-block" id="lbulan">Laporan Bulanan</a>
         </div>
         <div class="col-md-3 col-sm-6 mb-2">
-            {{-- PERBAIKAN: Menggunakan format 'n' untuk bulan tanpa awalan nol --}}
-            <a href="{{ route('admin.export', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block">Export Excel</a>
+            <a href="{{ route('admin.exportBulanan', ['type' => 'excel', 'month' => (new DateTime())->format('n'), 'year' => (new DateTime())->format('Y')]) }}" class="btn btn-success btn-block" id="lexcel">Export Excel</a>
         </div>
-        <div class="col-md-3 col-sm-6 mb-2">
-            <a href="{{ route('admin.aktivitas') }}" class="btn btn-info btn-block">Lihat Aktivitas Admin</a>
         </div>
-    </div>
 </div>
-@endsection    
-</body>
+@endsection
+<style>
+    #cari{
+        background-color: transparent;
+        border: 1px solid #3b818a;
+        color: #3b818a;
+    }
+
+    #cari:hover{
+        background-color:rgb(3, 53, 26);
+        color: whitesmoke;
+        transition: 0.5s;
+    }
+
+    /* #lbulan{
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+    } */
+
+    #lexcel{
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+    }
+</style>

@@ -21,8 +21,8 @@
             <div class="card-body">
                 <h5 class="card-title">Filter Laporan</h5>
                 <form action="{{ route('admin.laporanBulanan') }}" method="GET">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
+                    <div class="row align-items-end">
+                        <div class="col-md-5 mt-3">
                             <label for="month" class="form-label">Bulan</label>
                             <select name="month" id="month" class="form-select">
                                 @foreach($months as $key => $value)
@@ -30,7 +30,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-5 mt-3">
                             <label for="year" class="form-label">Tahun</label>
                             <select name="year" id="year" class="form-select">
                                 @foreach($years as $y)
@@ -38,8 +38,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary btn-block w-100">Filter</button>
+                        <div class="col-md-2 mt-3 justify-content-end">
+                            <button type="submit" class="btn btn-block w-20">Filter</button>
                         </div>
                     </div>
                 </form>
@@ -88,9 +88,9 @@
         </div>
 
         <div class="mt-4">
-            <a href="{{ route('admin.export', ['type' => 'excel', 'month' => $month, 'year' => $year]) }}" class="btn btn-success mr-2">Unduh Excel</a>
-            <a href="{{ route('admin.export', ['type' => 'pdf', 'month' => $month, 'year' => $year]) }}" class="btn btn-danger">Unduh PDF</a>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mt-3 float-end">Kembali ke Dashboard</a>
+            <a href="{{ route('admin.export', ['type' => 'excel', 'month' => $month, 'year' => $year]) }}" class="btn" id="excel">Unduh Excel</a>
+            <a href="{{ route('admin.export', ['type' => 'pdf', 'month' => $month, 'year' => $year]) }}" class="btn" id="pdf">Unduh PDF</a>
+            <a href="{{ route('admin.dashboard') }}" class="btn float-end">Kembali</a>
         </div>
     </div>
 @endsection

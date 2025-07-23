@@ -4,12 +4,12 @@
     <title>Form Buku Tamu</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="style_form.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 <body>
+
+
 <div class="logo pt-5 d-flex justify-content-center">
     <img src="{{ asset('image/fix_logo.png') }}" alt="Logo Perusahaan" class="logo-img img-fluid w-80">
 </div>
@@ -17,7 +17,7 @@
 
 <div class="mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-4 form_box">
+        <div class="col-12 col-md-8 col-lg-4 col-sm-8 form_box">
             <h2 class="judul mb-4">Formulir Buku Tamu</h2>
 
             @if (session('success'))
@@ -78,8 +78,8 @@
                     <input type="text" class="form-control" id="other_purpose_description" name="other_purpose_description">
                 </div>
 
-                <div class="d-flex justify-content-end pt-3">
-                    <button type="submit" class="btn btn-simpan">SIMPAN</button>
+                <div class="d-grid gap-2 justify-content-end">
+                    <button type="submit" class="btn">SIMPAN</button>
                 </div>
             </form>
         </div>
@@ -139,11 +139,9 @@
                     });
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     alert("Gagal memuat kelurahan: " + textStatus);
-                    // Jika gagal, kembalikan opacity ke 0.5
                     $('#kelurahan').css('opacity', '0.5');
                 });
             } else {
-                // Jika pilihan kecamatan dikosongkan, kelurahan juga kosong dan transparan
                 $('#kelurahan').empty().append('<option value=""> Pilih Kelurahan </option>');
                 $('#kelurahan').css('opacity', '0.5');
             }
@@ -227,5 +225,8 @@
     }
     .form-control{
         font-size: 16px;
+    }
+    #logadmin{
+        text-decoration: underline;
     }
 </style>

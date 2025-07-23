@@ -20,7 +20,23 @@
             font-weight: bold;
             font-size: 1.3rem;
             letter-spacing: 1px;
+            /* Pastikan tidak ada margin-right atau properti yang mendorongnya terlalu jauh */
+            margin-right: 0; /* Override default jika ada */
         }
+
+        /* Ini adalah div yang akan menampung navbar-brand dan tombol logout */
+        .navbar-header-custom {
+            display: flex; 
+            align-items: center;
+            justify-content: space-between;
+            width: 100%; 
+        }
+
+        .logout-btn-wrapper {
+            margin-left: 100px; /* Mendorong ke kanan */
+            margin-right: 0; /* Sesuaikan jarak dari kanan jika diperlukan */
+        }
+
 
         .navbar-nav .nav-link {
             transition: color 0.3s, background-color 0.3s;
@@ -43,12 +59,29 @@
             border-radius: 0.25rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+
+        /* Hilangkan CSS tambahan sebelumnya jika tidak lagi relevan */
+        /* .navbar-nav.ml-auto .nav-item {
+            display: flex;
+            align-items: center;
+        } */
     </style>
 </head>
 <body>
-    {{-- Navbar Admin --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Admin Panel</a>
+        <div class="navbar-header-custom">
+            <a class="navbar-brand m-3" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
+
+            <div class="logout-btn-wrapper">
+                <a href="{{ route('admin.logout') }}" class="btn btn-danger my-2 my-lg-0"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
+        </div>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -69,25 +102,12 @@
                     <a class="nav-link" href="{{ route('admin.aktivitas') }}">Aktivitas Admin</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ Auth::user()->name ?? 'Admin' }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('admin.logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            </ul>
         </div>
+<<<<<<< HEAD
     </nav>
+=======
+    </nav> 
+>>>>>>> 2bea5b37417876801f01b3f8e48e9ce9d8bcc329
 
     <main class="py-4">
         <div class="container mt-4">

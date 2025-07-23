@@ -17,20 +17,26 @@
 <div class="container mt-4">
     {{-- Filter Card untuk memilih rentang tanggal dan navigasi cepat --}}
     <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Filter Laporan</h5>
-            
-            {{-- Navigasi Cepat --}}
-            <div class="mb-3 pt-2">
-                <p class="mb-2"><strong>Navigasi Cepat:</strong></p>
-                <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Lalu</a>
-                <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
-                <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Depan &raquo;</a>
+        <div class="">
+
+            <div class="d-flex justify-content-end align-items-center">
+                <h5 class="card-title me-auto mb-0">Filter Laporan</h5>
+                <div class="btn-group" role="group" aria-label="Navigasi Minggu">
+                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Lalu</a>
+                </div>
+                
+                <div class="btn-group" role="group" aria-label="tengah">
+                    <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
+                </div>
+                <div class="btn-group" role="group" aria-label="akhir">
+                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Depan &raquo;</a>
+                </div>
+                </div>
             </div>
 
             <hr>
 
-            {{-- Filter Tanggal Kustom --}}
+
             <p class="mb-2"><strong>Pilih Rentang Tanggal Kustom:</strong></p>
             <form action="{{ route('admin.laporanMingguan') }}" method="GET">
                 <div class="row align-items-end">
@@ -42,8 +48,8 @@
                         <label for="end_date" class="form-label">Tanggal Selesai</label>
                         <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
                     </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    <div class="col-md-2 mt-3 mt-md-0">
+                        <button type="submit" class="btn w-100" id="filter">Filter</button> {{-- Menggunakan w-100 agar tombol memenuhi kolom --}}
                     </div>
                 </div>
             </form>
@@ -53,14 +59,13 @@
     <h1 class="mb-1">Laporan Absensi</h1>
     <p class="lead mb-4">Menampilkan rekap absensi dari tanggal <strong>{{ $startDate->format('d F Y') }}</strong> hingga <strong>{{ $endDate->format('d F Y') }}</strong>.</p>
 
-    {{-- Tabel data absensi --}}
     <div class="table-responsive mb-4">
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>No.</th>
                     <th>Nama</th>
-                    <th>Alamat</th> {{-- <-- KOLOM BARU DITAMBAHKAN --}}
+                    <th>Alamat</th>
                     <th>Tujuan Kunjungan</th>
                     <th>Waktu Absen</th>
                 </tr>
@@ -70,35 +75,32 @@
                     <tr>
                         <td>{{ $guestsMingguan->firstItem() + $index }}</td>
                         <td>{{ $guest->name }}</td>
-                        <td>{{ $guest->address }}</td> {{-- <-- DATA ALAMAT DITAMPILKAN --}}
+                        <td>{{ $guest->address }}</td>
                         <td>{{ $guest->purpose->purpose_name ?? $guest->other_purpose_description }}</td>
                         <td>{{ (new DateTime($guest->timestamp))->format('d F Y, H:i:s') }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted py-3">Tidak ada data absensi untuk periode ini.</td> {{-- <-- Colspan diubah menjadi 5 --}}
+                        <td colspan="5" class="text-center text-muted py-3">Tidak ada data absensi untuk periode ini.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    {{-- Navigasi halaman (pagination) --}}
     <div class="d-flex justify-content-center mb-4">
         {{ $guestsMingguan->links() }}
     </div>
 
-    {{-- Tombol Aksi (Ekspor dan Kembali) --}}
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
-            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-success">Unduh Excel</a>
-            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn btn-danger">Unduh PDF</a>
+            <a href="{{ route('admin.exportMingguan', ['type' => 'excel', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="excel">Unduh Excel</a>
+            <a href="{{ route('admin.exportMingguan', ['type' => 'pdf', 'start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')]) }}" class="btn" id="pdf">Unduh PDF</a>
         </div>
         <div>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali ke Dashboard</a>
+            <a href="{{ route('admin.dashboard') }}" class="btn">Kembali</a>
         </div>
     </div>
-</div>
 @endsection
 </body>
 
