@@ -103,11 +103,8 @@
                 </li>
             </ul>
         </div>
-<<<<<<< HEAD
     </nav>
-=======
     </nav> 
->>>>>>> 2bea5b37417876801f01b3f8e48e9ce9d8bcc329
 
     <main class="py-4">
         <div class="container mt-4">
