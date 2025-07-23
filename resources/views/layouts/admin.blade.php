@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - Aplikasi Buku Tamu</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9yj0n" crossorigin="anonymous">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    {{-- Memuat CSS dan JS dari Vite (cukup satu kali) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Memuat CSS Bootstrap dari CDN --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9yj0n" crossorigin="anonymous">
 
     <style>
         .navbar {
@@ -42,11 +46,10 @@
     </style>
 </head>
 <body>
-    {{-- Kode Navbar Admin --}}
+    {{-- Navbar Admin --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Admin Panel</a>
         
-        {{-- Tombol Toggler untuk Responsivitas (Muncul di layar kecil) --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -85,11 +88,10 @@
             </ul>
         </div>
     </nav>
-    {{-- Akhir Kode Navbar Admin --}}
 
     <main class="py-4">
         <div class="container mt-4">
-            @yield('content') {{-- Konten dari dashboard.blade.php akan masuk di sini --}}
+            @yield('content')
         </div>
     </main>
 
@@ -99,8 +101,9 @@
         </div>
     </footer>
 
+    {{-- Skrip JavaScript untuk Bootstrap --}}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57B+U2LwF31Uf8kP91P/1Q4n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57B+U2LwF31Uf8kP91P/1Q4n" crossorigin="anonymous"></script>
 </body>
 </html>
