@@ -34,7 +34,7 @@
         }
 
         .logout-btn-wrapper {
-            margin-left: 100%; 
+            margin-left: 98%; 
             margin-right: 0;
         }
 
