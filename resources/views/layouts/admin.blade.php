@@ -80,7 +80,7 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="navbar-header-custom">
-            <a class="navbar-brand m-3 pl-5" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
+            <a class="navbar-brand m-3 pl-15" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
 
             <div class="btnn logout-btn-wrapper">
                 <a href="{{ route('admin.logout') }}" class="btn btn-danger my-2 my-lg-0 float-end" id="logout"
@@ -113,10 +113,6 @@
                 </li>
             </ul>
         </div>
-<<<<<<< HEAD
-=======
-    </nav>
->>>>>>> 0f6b3af0e48359a6105dc50d785f1292b692eeaf
     </nav> 
 
     <main class="py-4">
@@ -131,7 +127,7 @@
         </div>
     </footer>
 
-    {{-- Skrip JavaScript untuk Bootstrap --}}
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57B+U2LwF31Uf8kP91P/1Q4n" crossorigin="anonymous"></script>

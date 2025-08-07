@@ -188,4 +188,20 @@
         color: aliceblue;
         duration: 0.5s;
     }
+
+    .pagination .page-link {
+        color: #007bff;        }
+
+    .pagination .page-link:hover {
+        color: #0056b3;
+    }
+
+    .pagination .page-item.active .page-link {
+        color: #fff; 
+    }
+
+    
+    .pagination .page-item.disabled .page-link {
+        color: #6c757d; 
+    }
 </style>

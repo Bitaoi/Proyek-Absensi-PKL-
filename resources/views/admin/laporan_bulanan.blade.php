@@ -84,7 +84,6 @@
         </div>
 
         <div class="d-flex justify-content-center mb-4">
-            <!-- Pagination links would go here -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
@@ -170,5 +169,25 @@
     .page-link {
         color: #195a63ff;
         background-color: white;
+    }
+
+    .page-item{
+        color: whitesmoke;
+    }
+
+    .pagination .page-link {
+        color: #007bff;        }
+
+    .pagination .page-link:hover {
+        color: #0056b3;
+    }
+
+    .pagination .page-item.active .page-link {
+        color: #fff; 
+    }
+
+    
+    .pagination .page-item.disabled .page-link {
+        color: #6c757d; 
     }
 </style>
