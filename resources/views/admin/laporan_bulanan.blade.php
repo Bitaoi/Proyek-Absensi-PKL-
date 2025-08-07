@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="container mt-4">
+    <div class="mt-4">
         <h1 class="mb-3">Laporan Absensi Bulanan</h1>
 
         <div class="card mb-4 shadow-sm">
@@ -84,6 +84,19 @@
         </div>
 
         <div class="d-flex justify-content-center mb-4">
+            <!-- Pagination links would go here -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="d-flex justify-content-center mb-4">
             {{ $guestsBulanan->appends(request()->query())->links() }}
         </div>
 
@@ -104,9 +117,7 @@
     .btn{
         background-color: #3b818a;
         color: whitesmoke;
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
-        border-radius: 25px;
+
     }
 
     #filter{
@@ -152,4 +163,12 @@
         transition: 0.5s;
     }
 
+    .theader{
+        background-color: #195a63ff;
+    }
+
+    .page-link {
+        color: #195a63ff;
+        background-color: white;
+    }
 </style>

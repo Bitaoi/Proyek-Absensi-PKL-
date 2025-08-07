@@ -5,9 +5,6 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 
-
-
-
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');

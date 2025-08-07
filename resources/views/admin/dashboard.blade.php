@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div class="container mt-4">
+<div class="mt-4">
     <h1 class="mb-3">Dashboard Admin</h1>
     <p class="lead">Selamat Datang, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}</p>
 
@@ -87,12 +87,12 @@
 @endsection
 <style>
     #cari {
-        background-color: #ffffff; /* Atau ganti dengan warna lain */
+        background-color: #ffffff;
         border: 1px solid #3b818a;
         color: #3b818a;
         padding: 8px 12px;
         border-radius: 5px;
-        width: 100%; /* atau ukuran tertentu, misalnya 250px */
+        width: 100%;
         box-sizing: border-box;
     }
 
@@ -109,16 +109,22 @@
     } */
 
     #lexcel{
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
+        background-color: #10793F;
+    }
+
+    #lexcel:hover{
+        background-color: transparent;
+        border: 1px solid #10793F;
+        color: #10793F;
+        transition: 0.5s;
     }
 
     .btn{
         background-color: #3b818a;
         color: whitesmoke;
-        -webkit-border-radius: 25px;
+        /* -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
-        border-radius: 25px;
+        border-radius: 25px; */
     }
 
     .btn:hover{

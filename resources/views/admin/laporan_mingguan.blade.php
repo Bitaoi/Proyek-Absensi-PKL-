@@ -16,20 +16,29 @@
 <body>
 <div class="container mt-4">
     {{-- Filter Card untuk memilih rentang tanggal dan navigasi cepat --}}
-    <div class="card mb-4 shadow-sm">
+    <div class="mb-4">
         <div class="">
 
             <div class="d-flex justify-content-end align-items-center">
                 <h5 class="card-title me-auto mb-0">Filter Laporan</h5>
                 <div class="btn-group" role="group" aria-label="Navigasi Minggu">
-                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn btn-outline-secondary"> &laquo; Minggu Lalu</a>
+                    {{-- Tombol Minggu Lalu --}}
+                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $prevWeekStartDate, 'end_date' => $prevWeekEndDate]) }}" class="btn" id="btnn">
+                        <span class="d-md-none">&laquo;</span> {{-- Hanya panah di layar kecil --}}
+                        <span class="d-none d-md-inline">&laquo; Minggu Lalu</span>
+                    </a>
                 </div>
                 
-                <div class="btn-group" role="group" aria-label="tengah">
-                    <a href="{{ route('admin.laporanMingguan') }}" class="btn btn-outline-primary">Minggu Ini</a>
+                <div class="btn-group ml-2 mr-2" role="group" aria-label="tengah">
+
+                    <a href="{{ route('admin.laporanMingguan') }}" class="btn">Minggu Ini</a>
+
                 </div>
                 <div class="btn-group" role="group" aria-label="akhir">
-                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn btn-outline-secondary">Minggu Depan &raquo;</a>
+                    <a href="{{ route('admin.laporanMingguan', ['start_date' => $nextWeekStartDate, 'end_date' => $nextWeekEndDate]) }}" class="btn" id="btnn">
+                        <span class="d-md-none">&raquo;</span>
+                        <span class="d-none d-md-inline">Minggu Depan &raquo;</span>
+                    </a>
                 </div>
                 </div>
             </div>
@@ -49,7 +58,7 @@
                         <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
                     </div>
                     <div class="col-md-2 mt-3 mt-md-0">
-                        <button type="submit" class="btn w-100" id="filter">Filter</button> {{-- Menggunakan w-100 agar tombol memenuhi kolom --}}
+                        <button type="submit" class="btn w-30" id="filter">Filter</button>
                     </div>
                 </div>
             </form>
@@ -89,6 +98,19 @@
     </div>
 
     <div class="d-flex justify-content-center mb-4">
+            <!-- Pagination links would go here -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    <div class="d-flex justify-content-center mb-4">
         {{ $guestsMingguan->links() }}
     </div>
 
@@ -112,9 +134,9 @@
     .btn{
         background-color: #3b818a;
         color: whitesmoke;
-        -webkit-border-radius: 25px;
+        /* -webkit-border-radius: 25px;
         -moz-border-radius: 25px;
-        border-radius: 25px;
+        border-radius: 25px; */
     }
 
     .btn:hover{
@@ -141,5 +163,29 @@
         background-color:rgb(3, 53, 26);
         color: whitesmoke;
         transition: 0.5s;
+    }
+
+    #filter{
+        background-color:transparent;
+        border: 1px solid #3b818a;
+        color: #3b818a;
+    }
+
+    #filter:hover{
+        background-color: #3b818a;
+        color: aliceblue;
+        duration: 0.5s;
+    }
+
+    #btnn{
+        background-color:transparent;
+        border: 1px solid #3b818a;
+        color: #3b818a;
+    }
+
+    #btnn:hover{
+        background-color: #3b818a;
+        color: aliceblue;
+        duration: 0.5s;
     }
 </style>

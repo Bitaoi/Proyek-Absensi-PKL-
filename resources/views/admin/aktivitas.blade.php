@@ -10,9 +10,9 @@
             <h5 class="card-title">Cari Log Aktivitas</h5>
             <form action="{{ route('admin.aktivitas') }}" method="GET">
                 <div class="input-group">
-                    <input type="text" name="search_log" class="form-control" placeholder="Cari berdasarkan aksi, pengguna, atau tanggal" value="{{ request('search_log') }}">
+                    <input type="text" name="search_log" class="form-control" placeholder="Cari berdasarkan aksi, pengguna, atau deskripsi..." value="{{ request('search_log') }}">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-outline-secondary">Cari</button>
+                        <button type="submit" class="btn btn-outline-primary">Cari</button>
                     </div>
                 </div>
             </form>
@@ -48,10 +48,14 @@
         </table>
     </div>
 
+    {{-- Navigasi halaman (pagination) --}}
     <div class="d-flex justify-content-center mb-4">
         {{ $aktivitasLogs->appends(request()->query())->links() }}
     </div>
 
-    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mt-3">Kembali ke Dashboard</a>
+    {{-- Tombol Kembali ke Dashboard diletakkan di pojok kanan bawah --}}
+    <div class="d-flex justify-content-end mt-3">
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali ke Dashboard</a>
+    </div>
 </div>
 @endsection
